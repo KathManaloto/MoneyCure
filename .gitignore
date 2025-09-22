@@ -1,0 +1,55 @@
+# === Java build files ===
+*.class
+*.jar
+*.war
+*.ear
+
+# Build directories
+/bin/
+/out/
+/target/
+/build/
+
+# === IDE specific ===
+
+# IntelliJ IDEA
+*.iml
+.idea/
+*.iws
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# === OS files ===
+.DS_Store
+Thumbs.db
+
+# === Logs & Temp files ===
+*.log
+*.tmp
+*.swp
+
+# === SQLite Database ===
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# === User specific ===
+*.properties
+*.env

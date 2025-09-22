@@ -1,0 +1,103 @@
+//Reads input from the View, builds a Model, calls DAO.
+package moneycure.controller.features;
+
+import moneycure.database.*;
+import moneycure.model.*;
+import moneycure.view.feature.*;
+import javax.swing.*;
+import java.util.List;
+
+public class ExpenseController {
+
+    // ===== FIELDS =====
+    private final ExpenseDAO expenseDAO;
+    private final ExpensePanel expensePanel;
+
+    // ===== CONSTRUCTOR =====
+    public ExpenseController(ExpensePanel expensePanel, ExpenseDAO expenseDAO) {
+        this.expensePanel = expensePanel;
+        this.expenseDAO = expenseDAO;
+        System.out.println("ExpenseController initialized!"); // DEBUG
+        initController();
+        loadRecentExpenses();
+    }
+
+    // ===== INIT CONTROLLER =====
+    private void initController() {
+        expensePanel.getBtnAddExpense().addActionListener(e -> addExpense());
+    }
+
+    // === ON ADD BUTTON CLICK ===
+    private void addExpense() {
+
+        try {
+            // DATE
+            String date = expensePanel.getSelectedDate();
+
+                if (date.isEmpty()) {
+                    JOptionPane.showMessageDialog(expensePanel, "Date is required.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+            // CATEGORY
+            ExpenseBudgetCategory selected = (ExpenseBudgetCategory) expensePanel.getExpensesCategoryCombo().getSelectedItem();
+            String category = selected != null ? selected.getName() : "OTHERS";
+
+            // AMOUNT
+            String amountText = expensePanel.getTxtAmountExpenses().getText().trim();
+            double amount;
+
+                if (amountText.isEmpty()) {
+                    JOptionPane.showMessageDialog(expensePanel, "Please enter an amount.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                try {
+                    amount = Double.parseDouble(amountText);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(expensePanel, "Amount must be a valid number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+            // NOTES
+            String notes = expensePanel.getTxtNotesExpenses().getText();
+
+            // CREATE EXPENSE OBJECT
+            Expense expense = new Expense(date, category, amount, notes);
+
+            // SAVE TO DATABASE
+            boolean success = expenseDAO.addExpense(expense);
+
+                if (success) {
+                    JOptionPane.showMessageDialog(expensePanel, "Expense added!");
+                    expensePanel.clearFields();
+                } else {
+                    JOptionPane.showMessageDialog(expensePanel, "Failed to add expense.");
+                }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                expensePanel,
+                "Error adding expense: " + ex.getLocalizedMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE
+            );
+            ex.printStackTrace();
+        }
+    }
+
+    private void loadRecentExpenses() {
+
+        expensePanel.clearExpenseTable();
+
+        List<Expense> recentExpenses = expenseDAO.getExpenses(5);
+
+        for (Expense expense : recentExpenses) {
+            expensePanel.addExpenseToTable(
+                expense.getDate(),
+                expense.getCategory(),
+                expense.getAmount(),
+                expense.getNotes()
+            );
+        }
+    }
+}
