@@ -5,8 +5,12 @@ import moneycure.view.MainFrame;
 import moneycure.database.*;
 
 import javax.swing.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MoneyCureMain {
+
+    private static  final Logger LOGGER = Logger.getLogger(MoneyCureMain.class.getName());
 
     public static void main(String[] args) {
 
@@ -19,7 +23,7 @@ public class MoneyCureMain {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING,"Failed to set Nimbus look and feel, using default.",e);
         }
 
         SetupDatabase.createTables();
