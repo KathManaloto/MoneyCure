@@ -5,8 +5,7 @@ import moneycure.view.MainFrame;
 import moneycure.database.*;
 
 import javax.swing.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 public class MoneyCureMain {
 
