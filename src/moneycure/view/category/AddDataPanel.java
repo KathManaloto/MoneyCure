@@ -2,6 +2,7 @@ package moneycure.view.category;
 
 import moneycure.view.*;
 import moneycure.view.feature.*;
+
 import javax.swing.*;
 import java.awt.*;
 

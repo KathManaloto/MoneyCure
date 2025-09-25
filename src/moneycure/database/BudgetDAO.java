@@ -3,11 +3,15 @@
 package moneycure.database;
 
 import moneycure.model.*;
+
 import java.sql.*;
 import java.time.Month;
 import java.util.*;
+import java.util.logging.*;
 
 public class BudgetDAO {
+
+    private static final Logger LOGGER = Logger.getLogger(BudgetDAO.class.getName());
 
     // ===== CREATE/ADD DATA =====
     public boolean addBudget(Budget budget) {
@@ -23,11 +27,11 @@ public class BudgetDAO {
             preparedStatement.setString(4, budget.getNotes());
 
             int rows = preparedStatement.executeUpdate();
-            System.out.println("Rows inserted: " + rows);
+            LOGGER.info("Budget added successfully");
             return rows > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE,"Error adding budget",e);
             return false;
         }
     }

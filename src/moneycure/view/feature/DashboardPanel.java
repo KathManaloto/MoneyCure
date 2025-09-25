@@ -3,37 +3,35 @@ package moneycure.view.feature;
 import moneycure.database.*;
 import moneycure.view.*;
 import moneycure.view.common.*;
+
 import javax.swing.*;
 import java.awt.*;
-import java.time.Month;
+import java.time.*;
 import java.util.*;
 
 public class DashboardPanel extends JPanel {
 
     // ===== FIELDS =====
+    private final MonthSelectorPanel monthPanel;
+    private Month currentMonth;
+    private final int currentYear;
+
+    private final SummaryPanel expensesPanel;
+
     private final BudgetDAO budgetDAO;
     private final ExpenseDAO expenseDAO;
     private final ProgressBarsPanel progressBarsPanel;
-
-    private final SummaryPanel balancePanel;
-    private final SummaryPanel expensesPanel;
-    private final SummaryPanel savingsPanel;
-
-    private final MonthSelectorPanel monthPanel;
-
-    private Month currentMonth;
-    private final int currentYear;
 
     // ===== CONSTRUCTOR =====
     public DashboardPanel() {
         setLayout(new BorderLayout(10, 0));
         setBackground(Color.LIGHT_GRAY);
 
-            budgetDAO = new BudgetDAO();
+            budgetDAO  = new BudgetDAO();
             expenseDAO = new ExpenseDAO();
 
-            currentMonth = java.time.LocalDate.now().getMonth();
-            currentYear = java.time.LocalDate.now().getYear();
+            currentMonth = LocalDate.now().getMonth();
+            currentYear  = LocalDate.now().getYear();
 
             // ===== TOP PANEL =====
             JPanel topPanel = new JPanel(new GridLayout(1, 4, 10, 10));
@@ -42,11 +40,11 @@ public class DashboardPanel extends JPanel {
                 monthPanel = new MonthSelectorPanel();
 
                 // ----- TopSummary panels -----
-                balancePanel  = new SummaryPanel("Balance");
+        SummaryPanel balancePanel = new SummaryPanel("Balance");
                 expensesPanel = new SummaryPanel("Expenses");
-                savingsPanel  = new SummaryPanel("Savings");
+        SummaryPanel savingsPanel = new SummaryPanel("Savings");
 
-            Helper.stylePanelBackground(monthPanel,balancePanel, expensesPanel, savingsPanel);
+            Helper.stylePanelBackground(monthPanel, balancePanel, expensesPanel, savingsPanel);
             Helper.styleTopPanel(topPanel);
 
             topPanel.add(monthPanel);
