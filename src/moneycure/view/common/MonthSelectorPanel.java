@@ -20,6 +20,11 @@ public class MonthSelectorPanel extends JPanel {
             monthComboBox.addItem(formatted);
         }
 
+        // ✅ Select current month automatically
+        Month currentMonth = java.time.LocalDate.now().getMonth();
+        String currentFormatted = currentMonth.name().charAt(0) + currentMonth.name().substring(1).toLowerCase();
+        monthComboBox.setSelectedItem(currentFormatted);
+
         monthComboBox.setFont(new Font("Verdana", Font.PLAIN, 16));
         monthComboBox.setBackground(new Color(182, 182, 182));
         monthComboBox.setForeground(new Color(59, 59, 59));

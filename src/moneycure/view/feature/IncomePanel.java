@@ -60,8 +60,8 @@ public class IncomePanel extends JPanel {
             JButton btnSubmitIncome = new JButton("Submit");
             JButton btnCancelIncome = new JButton("Cancel");
 
-            Helper.StyleBottomButtons(btnSubmitIncome);
-            Helper.StyleBottomButtons(btnCancelIncome);
+            Helper.styleBottomButtons(btnSubmitIncome);
+            Helper.styleBottomButtons(btnCancelIncome);
 
             btnSubmitCancelPanel.add(btnSubmitIncome);
             btnSubmitCancelPanel.add(btnCancelIncome);

@@ -15,7 +15,7 @@ public class ExpenseDAO {
         String sql = "INSERT INTO expenses (date, category, amount, notes) VALUES (?,?,?,?)";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
             preparedStatement.setString(1, expense.getDate());
             preparedStatement.setString(2, expense.getCategory());
@@ -67,20 +67,22 @@ public class ExpenseDAO {
         return list;
     }
 
-    // ===== READ DATA (Grouped by category, filtered by month) =====
-    public Map<String,Double> getMonthlyExpenses(String yearMonth){
+    // totals per category
+    public Map<String,Double> getMonthlyExpenses(Month month, int year){
 
         Map<String,Double> result = new HashMap<>();
 
         String sql = "SELECT category, SUM(amount) AS total " +
                 "FROM expenses " +
-                "WHERE strftime('%Y-%m',date) = ?" +
+                "WHERE strftime('%m', date) = ? " +
+                "AND strftime('%Y',date) = ? " +
                 "GROUP BY category";
 
         try(Connection conn = DBConnection.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(sql)){
 
-            preparedStatement.setString(1,yearMonth);
+            preparedStatement.setString(1, String.format("%02d",month.getValue()));
+            preparedStatement.setString(2,String.valueOf(year));
 
             try(ResultSet rs = preparedStatement.executeQuery()){
                 while(rs.next()){
@@ -98,6 +100,7 @@ public class ExpenseDAO {
         return result;
     }
 
+    //actual list of transactions
     public List<Expense> getExpensesByMonth(Month month, int year){
         String sql = "SELECT category, amount FROM expenses " +
                 "WHERE strftime('%m',\"date\") = ? " +

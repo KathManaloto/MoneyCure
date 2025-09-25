@@ -12,11 +12,13 @@ public class ExpenseController {
     // ===== FIELDS =====
     private final ExpenseDAO expenseDAO;
     private final ExpensePanel expensePanel;
+    private final DashboardPanel dashboardPanel;
 
     // ===== CONSTRUCTOR =====
-    public ExpenseController(ExpensePanel expensePanel, ExpenseDAO expenseDAO) {
+    public ExpenseController(ExpensePanel expensePanel, ExpenseDAO expenseDAO, DashboardPanel dashboardPanel) {
         this.expensePanel = expensePanel;
         this.expenseDAO = expenseDAO;
+        this.dashboardPanel = dashboardPanel;
         System.out.println("ExpenseController initialized!"); // DEBUG
         initController();
         loadRecentExpenses();
@@ -35,7 +37,11 @@ public class ExpenseController {
             String date = expensePanel.getSelectedDate();
 
                 if (date.isEmpty()) {
-                    JOptionPane.showMessageDialog(expensePanel, "Date is required.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(
+                        expensePanel,
+                        "Date is required.",
+                        "Validation Error",
+                        JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
@@ -48,14 +54,28 @@ public class ExpenseController {
             double amount;
 
                 if (amountText.isEmpty()) {
-                    JOptionPane.showMessageDialog(expensePanel, "Please enter an amount.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(
+                        expensePanel,
+                        "Please enter an amount.",
+                        "Validation Error",
+                        JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
-                try {
+            try {
                     amount = Double.parseDouble(amountText);
+
+                    if (amount <= 0) {
+                        JOptionPane.showMessageDialog(expensePanel, "Amount must be greater than zero.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(expensePanel, "Amount must be a valid number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(
+                        expensePanel,
+                        "Amount must be a valid number.",
+                        "Validation Error",
+                        JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
@@ -69,8 +89,10 @@ public class ExpenseController {
             boolean success = expenseDAO.addExpense(expense);
 
                 if (success) {
+                    dashboardPanel.refreshData();
                     JOptionPane.showMessageDialog(expensePanel, "Expense added!");
                     expensePanel.clearFields();
+                    loadRecentExpenses();
                 } else {
                     JOptionPane.showMessageDialog(expensePanel, "Failed to add expense.");
                 }
@@ -89,7 +111,7 @@ public class ExpenseController {
 
         expensePanel.clearExpenseTable();
 
-        List<Expense> recentExpenses = expenseDAO.getExpenses(5);
+        List<Expense> recentExpenses = expenseDAO.getExpenses(10);
 
         for (Expense expense : recentExpenses) {
             expensePanel.addExpenseToTable(

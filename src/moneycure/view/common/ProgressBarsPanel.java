@@ -29,19 +29,24 @@ public class ProgressBarsPanel extends JPanel {
             JLabel label = new JLabel(category);
             add(label, Helper.getGbc(0, gridY, GridBagConstraints.HORIZONTAL, GridBagConstraints.WEST, 0));
 
-            JProgressBar progressBar = new JProgressBar(0, (int) budget);
-            progressBar.setValue((int) Math.min(expense, budget)); // cap at budget
-            progressBar.setPreferredSize(new Dimension(progressBar.getPreferredSize().width, 35));
+            int max = (int) Math.max(budget, expense);
 
-            int value = progressBar.getValue();
-            int max = progressBar.getMaximum();
-            float percent = (max > 0) ? (float) value / max : 0;
+            JProgressBar progressBar = new JProgressBar(0, max);
+            progressBar.setValue((int) expense);
+            progressBar.setPreferredSize(new Dimension(progressBar.getPreferredSize().width, 35));
 
             double remaining = budget - expense;
             progressBar.setStringPainted(true);
-            progressBar.setString("₱" + String.format("%.2f", Math.max(0, remaining)) + " remaining");
+
+            if (remaining >= 0) {
+                progressBar.setString("₱" + String.format("%.2f", remaining) + " remaining");
+                progressBar.setForeground(Helper.getGradientColor((float) expense / (float) budget));
+            } else {
+                progressBar.setString("-₱" + String.format("%.2f", Math.abs(remaining)) + " over");
+                progressBar.setForeground(Color.RED); // highlight over-budget
+            }
+
             progressBar.setFont(new Font("Arial", Font.PLAIN, 11));
-            progressBar.setForeground(Helper.getGradientColor(percent));
             progressBar.setBackground(new Color(236, 236, 236));
             progressBar.setBorder(BorderFactory.createLineBorder(new Color(138, 138, 138)));
 

@@ -3,10 +3,10 @@ package moneycure.model;
 
 public class Budget {
 
-    private String date;
-    private String category;
-    private double amount;
-    private String notes;
+    private final String date;
+    private final String category;
+    private final double amount;
+    private final String notes;
 
     public Budget(String date, String category, double amount, String notes){
         this.date = date;

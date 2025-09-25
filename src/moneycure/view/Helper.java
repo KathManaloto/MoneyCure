@@ -26,7 +26,7 @@ public class Helper {
     }
 
     // Style BottomButtons - Income, Savings Panels
-    public static void StyleBottomButtons(JButton button){
+    public static void styleBottomButtons(JButton button){
         button.setFont(new Font("Verdana", Font.BOLD, 18));
         button.setBackground(new Color(241, 241, 241));
         button.setForeground(new Color(44, 44, 44));
@@ -132,7 +132,7 @@ public class Helper {
         int blue = 0;
 
         // Mix with white (255,255,255) to lighten the color, factor 0.5 means 50% white
-        double lightenFactor = 0.25;
+        double lightenFactor = 0.1;
 
         red = (int) (red + (255 - red) * lightenFactor);
         green = (int) (green + (255 - green) * lightenFactor);

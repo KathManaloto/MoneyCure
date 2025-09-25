@@ -53,8 +53,8 @@ public class SavingsPanel extends JPanel {
             btnSubmitCancelPanel.add(btnSubmitSavings);
             btnSubmitCancelPanel.add(btnCancelSavings);
 
-            Helper.StyleBottomButtons(btnSubmitSavings);
-            Helper.StyleBottomButtons(btnCancelSavings);
+            Helper.styleBottomButtons(btnSubmitSavings);
+            Helper.styleBottomButtons(btnCancelSavings);
 
         add(lblSavings,BorderLayout.NORTH);
         add(formPanel,BorderLayout.CENTER);

@@ -1,97 +1,95 @@
 package moneycure.view.feature;
 
 import moneycure.database.*;
-import moneycure.model.Budget;
-import moneycure.model.Expense;
 import moneycure.view.*;
 import moneycure.view.common.*;
 import javax.swing.*;
 import java.awt.*;
-import java.time.*;
+import java.time.Month;
 import java.util.*;
-import java.util.List;
 
 public class DashboardPanel extends JPanel {
 
     // ===== FIELDS =====
     private final BudgetDAO budgetDAO;
     private final ExpenseDAO expenseDAO;
-    private ProgressBarsPanel progressBarsPanel; // <-- make it a field
+    private final ProgressBarsPanel progressBarsPanel;
+
+    private final SummaryPanel balancePanel;
+    private final SummaryPanel expensesPanel;
+    private final SummaryPanel savingsPanel;
+
+    private final MonthSelectorPanel monthPanel;
+
+    private Month currentMonth;
+    private final int currentYear;
 
     // ===== CONSTRUCTOR =====
     public DashboardPanel() {
         setLayout(new BorderLayout(10, 0));
         setBackground(Color.LIGHT_GRAY);
 
-        budgetDAO = new BudgetDAO();
-        expenseDAO = new ExpenseDAO();
+            budgetDAO = new BudgetDAO();
+            expenseDAO = new ExpenseDAO();
 
-        // ===== TOP PANEL =====
-        JPanel topPanel = new JPanel(new GridLayout(1, 4, 10, 10));
+            currentMonth = java.time.LocalDate.now().getMonth();
+            currentYear = java.time.LocalDate.now().getYear();
 
-        // ----- TopMonthPanel -----
-        MonthSelectorPanel monthPanel = new MonthSelectorPanel();
+            // ===== TOP PANEL =====
+            JPanel topPanel = new JPanel(new GridLayout(1, 4, 10, 10));
 
-        // ----- TopSummary panels -----
-        SummaryPanel balancePanel = new SummaryPanel("Balance");
-        SummaryPanel expensesPanel = new SummaryPanel("Expenses");
-        SummaryPanel savingsPanel = new SummaryPanel("Savings");
+                // ----- TopMonthPanel -----
+                monthPanel = new MonthSelectorPanel();
 
-        Helper.stylePanelBackground(monthPanel, balancePanel, expensesPanel, savingsPanel);
-        Helper.styleTopPanel(topPanel);
+                // ----- TopSummary panels -----
+                balancePanel  = new SummaryPanel("Balance");
+                expensesPanel = new SummaryPanel("Expenses");
+                savingsPanel  = new SummaryPanel("Savings");
 
-        topPanel.add(monthPanel);
-        topPanel.add(balancePanel);
-        topPanel.add(expensesPanel);
-        topPanel.add(savingsPanel);
+            Helper.stylePanelBackground(monthPanel,balancePanel, expensesPanel, savingsPanel);
+            Helper.styleTopPanel(topPanel);
+
+            topPanel.add(monthPanel);
+            topPanel.add(balancePanel);
+            topPanel.add(expensesPanel);
+            topPanel.add(savingsPanel);
 
         add(topPanel, BorderLayout.NORTH);
 
         // ===== PROGRESS PANEL =====
-        Month currentMonth = LocalDate.now().getMonth();
-        int currentYear = LocalDate.now().getYear();
+        Map<String, Double> budgets = budgetDAO.getMonthlyBudget(currentMonth, currentYear);
+        Map<String, Double> expenses = expenseDAO.getMonthlyExpenses(currentMonth, currentYear);
 
-        Map<String, Double> budgets = loadBudgets(currentMonth, currentYear);
-        Map<String, Double> expenses = loadExpenses(currentMonth, currentYear);
-
-        progressBarsPanel = new ProgressBarsPanel(budgets, expenses); // <-- assign to field
+        progressBarsPanel = new ProgressBarsPanel(budgets, expenses);
         Helper.stylePanelBorder(progressBarsPanel, "BUDGET VS EXPENSES");
 
-        add(progressBarsPanel, BorderLayout.CENTER);
-
-        revalidate();
-        repaint();
-    }
-
-    private Map<String, Double> loadBudgets(Month month, int year) {
-        Map<String, Double> budgetMap = new HashMap<>();
-        List<Budget> budgetList = budgetDAO.getBudgetsByMonth(month, year);
-
-        for (Budget b : budgetList) {
-            budgetMap.put(b.getCategory(), b.getAmount());
-        }
-        return budgetMap;
-    }
-
-    private Map<String, Double> loadExpenses(Month month, int year) {
-        Map<String, Double> expenseMap = new HashMap<>();
-        List<Expense> expenseList = expenseDAO.getExpensesByMonth(month, year);
-
-        for (Expense e : expenseList) {
-            expenseMap.put(e.getCategory(), e.getAmount());
-        }
-        return expenseMap;
+        add(progressBarsPanel,BorderLayout.CENTER);
+        updateSummary(expenses);
     }
 
     public void refreshData() {
-        Month currentMonth = LocalDate.now().getMonth();
-        int currentYear = LocalDate.now().getYear();
+        Map<String, Double> budgets  = budgetDAO.getMonthlyBudget(currentMonth,currentYear);
+        Map<String, Double> expenses = expenseDAO.getMonthlyExpenses(currentMonth,currentYear);
 
-        Map<String, Double> budgets = loadBudgets(currentMonth, currentYear);
-        Map<String, Double> expenses = loadExpenses(currentMonth, currentYear);
+        progressBarsPanel.updateData(budgets, expenses);
 
-        progressBarsPanel.updateData(budgets, expenses); // <-- now works
+        double totalExpenses = expenses.values().stream().mapToDouble(Double::doubleValue).sum();
+        expensesPanel.setValue(totalExpenses);
         revalidate();
         repaint();
     }
+
+    private void updateSummary(Map<String, Double> expenses){
+        double totalExpenses = expenses.values().stream().mapToDouble(Double::doubleValue).sum();
+        expensesPanel.setValue(totalExpenses);
+    }
+
+    public MonthSelectorPanel getMonthPanel() {
+        return monthPanel;
+    }
+
+    public void setCurrentMonth(Month month) {
+        this.currentMonth = month;
+    }
+
 }

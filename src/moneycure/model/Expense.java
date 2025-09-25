@@ -17,9 +17,9 @@ public class Expense {
 
     public Expense (String category, double amount) {
         this.category = category;
-        this.amount = amount;
-        this.date = null;
-        this.notes = null;
+        this.amount   = amount;
+        this.date     = null;
+        this.notes    = null;
     }
 
     public String getDate(){ return date; }

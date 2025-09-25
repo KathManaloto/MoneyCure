@@ -21,12 +21,13 @@ public class BudgetController {
         this.dashboardPanel = dashboardPanel;
         System.out.println("BudgetController initialized!"); // DEBUG
         initController();
-        loadRecentExpenses();
+        loadRecentBudgets();
     }
 
     // ===== INIT CONTROLLER =====
     private void initController() {
         budgetPanel.getBtnAddBudget().addActionListener(e -> addBudget());
+
     }
 
     // === ON ADD BUTTON CLICK ===
@@ -83,18 +84,16 @@ public class BudgetController {
             boolean success = budgetDAO.addBudget(budget);
 
             if (success) {
+                dashboardPanel.refreshData();
                 JOptionPane.showMessageDialog(budgetPanel, "Budget added!");
                 budgetPanel.clearFields();
-                loadRecentExpenses();
-
-                // 🔄 Refresh Dashboard
-                if (dashboardPanel != null) {
-                    dashboardPanel.refreshData();
-                }
+                loadRecentBudgets();
+                dashboardPanel.refreshData();
 
             } else {
                 JOptionPane.showMessageDialog(budgetPanel, "Failed to add budget.");
             }
+
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(
@@ -108,11 +107,10 @@ public class BudgetController {
 
     }
 
-    private void loadRecentExpenses() {
+    private void loadRecentBudgets() {
 
         budgetPanel.clearBudgetTable();
-
-        List<Budget> recentBudget = budgetDAO.getBudget(5);
+        List<Budget> recentBudget = budgetDAO.getBudget(10);
 
         for (Budget budget : recentBudget) {
             budgetPanel.addBudgetToTable(

@@ -26,7 +26,7 @@ public class MoneyCureMain {
 
         SwingUtilities.invokeLater(()->{
             MainFrame mainFrame  = new MainFrame();
-            new MoneyCureController(mainFrame, mainFrame.getAddData());
+            new MoneyCureController(mainFrame, mainFrame.getAddData(),mainFrame.getDashboardPanel());
             mainFrame.setVisible(true);
         });
     }
