@@ -17,6 +17,7 @@ public class MoneyCureController {
     private final AddDataPanel addDataPanel;
     private final DashboardPanel dashboardPanel;
 
+    private IncomeController incomeController;
     private ExpenseController expenseController;
     private BudgetController budgetController;
 
@@ -61,7 +62,16 @@ public class MoneyCureController {
     private void showAnalysis() { mainFrame.showCard(MainFrame.ANALYSIS); }
 
     // ===== ADD_DATA FEATURES =====
-    private void showIncome() { addDataPanel.showCard(AddDataPanel.INCOME); }
+    private void showIncome() {
+        addDataPanel.showCard(AddDataPanel.INCOME);
+
+        if(incomeController == null){
+            IncomeDAO incomeDAO     = new IncomeDAO();
+            IncomePanel incomePanel = addDataPanel.getIncomePanel();
+            incomeController = new IncomeController(incomePanel,incomeDAO);
+        }
+    }
+
     private void showSavings() { addDataPanel.showCard(AddDataPanel.SAVINGS); }
 
     // ===== SHOW BUDGET =====
@@ -69,11 +79,9 @@ public class MoneyCureController {
         addDataPanel.showCard(AddDataPanel.BUDGET);
 
         if (budgetController == null) {
-            BudgetDAO budgetDAO = new BudgetDAO();
+            BudgetDAO budgetDAO     = new BudgetDAO();
             BudgetPanel budgetPanel = addDataPanel.getBudgetPanel();
-            DashboardPanel dashboardPanel = mainFrame.getDashboardPanel();
-
-            budgetController = new BudgetController(budgetPanel, budgetDAO, dashboardPanel);
+            budgetController        = new BudgetController(budgetPanel, budgetDAO, dashboardPanel);
         }
     }
 
@@ -82,9 +90,9 @@ public class MoneyCureController {
         addDataPanel.showCard(AddDataPanel.EXPENSES);
 
         if (expenseController == null) {
-            ExpenseDAO expenseDAO = new ExpenseDAO();
+            ExpenseDAO expenseDAO     = new ExpenseDAO();
             ExpensePanel expensePanel = addDataPanel.getExpensePanel();
-            expenseController = new ExpenseController(expensePanel, expenseDAO, dashboardPanel);
+            expenseController         = new ExpenseController(expensePanel, expenseDAO, dashboardPanel);
         }
     }
 

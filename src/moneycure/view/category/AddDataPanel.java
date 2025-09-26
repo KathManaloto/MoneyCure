@@ -20,6 +20,7 @@ public class AddDataPanel extends JPanel {
 
     private BudgetPanel budgetPanel;
     private ExpensePanel expensePanel;
+    private IncomePanel incomePanel;
 
     // ===== CONSTRUCTOR =====
     public AddDataPanel(){
@@ -54,7 +55,7 @@ public class AddDataPanel extends JPanel {
             cardLayout   = new CardLayout();
             contentPanel = new JPanel(cardLayout);
 
-                IncomePanel incomePanel   = new IncomePanel();
+                incomePanel   = new IncomePanel();
                 SavingsPanel savingsPanel = new SavingsPanel();
                 budgetPanel  = new BudgetPanel();
                 expensePanel = new ExpensePanel();
@@ -81,6 +82,7 @@ public class AddDataPanel extends JPanel {
     public JButton getBtnBudget(){ return btnBudget; }
     public JButton getBtnExpenses(){ return btnExpenses; }
 
+    public IncomePanel getIncomePanel(){ return incomePanel; }
     public ExpensePanel getExpensePanel() { return expensePanel; }
     public BudgetPanel getBudgetPanel(){ return budgetPanel; }
 }

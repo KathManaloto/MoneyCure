@@ -1,20 +1,23 @@
 package moneycure.controller.features;
 
 import moneycure.controller.MoneyCureController;
+import moneycure.database.IncomeDAO;
+import moneycure.model.Income;
 import moneycure.view.feature.IncomePanel;
 
 import javax.swing.*;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 public class IncomeController {
 
+    private final IncomeDAO incomeDAO;
     private final IncomePanel incomePanel;
     private static final Logger LOGGER = Logger.getLogger(IncomeController.class.getName());
 
-    public IncomeController(IncomePanel incomePanel){
+    public IncomeController(IncomePanel incomePanel, IncomeDAO incomeDAO){
         this.incomePanel = incomePanel;
+        this.incomeDAO   = incomeDAO;
 
         initController();
     }
@@ -38,7 +41,7 @@ public class IncomeController {
                 }
 
             // income source
-            String incomeSource = Objects.requireNonNull(incomePanel.getIncomeCombo().getSelectedItem()).toString();
+            String incomeCombo = Objects.requireNonNull(incomePanel.getIncomeCombo().getSelectedItem()).toString();
 
             // amount
             String amountText = incomePanel.getTxtAmountIncome().getText().trim();
@@ -59,26 +62,35 @@ public class IncomeController {
 
                     if (amount <= 0) {
                         JOptionPane.showMessageDialog(
-                                incomePanel,
-                                "Amount must be greater than zero.",
-                                "Validation Error",
-                                JOptionPane.WARNING_MESSAGE);
+                            incomePanel,
+                            "Amount must be greater than zero.",
+                            "Validation Error",
+                            JOptionPane.WARNING_MESSAGE);
 
                         return;
                     }
+
                 }catch(NumberFormatException e){
                         JOptionPane.showMessageDialog(
-                                incomePanel,
-                                "Amount must be a valid number.",
-                                "Validation Error",
-                                JOptionPane.WARNING_MESSAGE);
+                            incomePanel,
+                            "Amount must be a valid number.",
+                            "Validation Error",
+                            JOptionPane.WARNING_MESSAGE);
+
                         return;
                     }
 
                 // notes
                 String notes = incomePanel.getTxtNotesIncome().getText();
 
+                Income income = new Income(date, incomeCombo, amount, notes);
+                boolean success = incomeDAO.addIncome(income);
 
+                if(success){
+                    JOptionPane.showMessageDialog(incomePanel, "Income added!");
+
+
+                }
 
         } catch (Exception e){
             JOptionPane.showMessageDialog(
@@ -90,4 +102,6 @@ public class IncomeController {
             LOGGER.log(Level.SEVERE,"Error adding income, e");
         }
     }
+
+
 }
