@@ -92,6 +92,7 @@ public class MainFrame extends JFrame {
             button.setForeground(new Color(33, 33, 33));
             button.setBackground(new Color(204, 204, 204));
             button.setFocusable(false);
+
             return button;
     }
 

@@ -20,8 +20,8 @@ public class Helper {
         panel.setPreferredSize(new Dimension(0, 90));
         panel.setBackground(new Color(128, 128, 128));
         panel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEmptyBorder(10, 10, 10, 10),
-                BorderFactory.createLineBorder(new Color(241, 241, 241), 2)
+            BorderFactory.createEmptyBorder(10, 10, 10, 10),
+            BorderFactory.createLineBorder(new Color(241, 241, 241), 2)
         ));
     }
 
@@ -36,12 +36,12 @@ public class Helper {
     // Style PanelBorder (label & chartTitle) - Dashboard Panel
     public static void stylePanelBorder(JPanel panel,String title) {
          panel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createLineBorder(new Color(82, 82, 82)),
-                title,
-                TitledBorder.CENTER,
-                TitledBorder.TOP,
-                new Font("Verdana", Font.BOLD, 16),
-                new Color(59, 59, 59)
+            BorderFactory.createLineBorder(new Color(82, 82, 82)),
+            title,
+            TitledBorder.CENTER,
+            TitledBorder.TOP,
+            new Font("Verdana", Font.BOLD, 16),
+            new Color(59, 59, 59)
         ));
     }
 
@@ -72,23 +72,20 @@ public class Helper {
             textField.setFont(fieldFont);
 
         } else if (comp instanceof JComboBox comboBox) {
+            Dimension size = comboBox.getPreferredSize();
+            comboBox.setPreferredSize(new Dimension(size.width, 30));
             comboBox.setFont(fieldFont);
             comboBox.setBorder(BorderFactory.createEmptyBorder(4, 0, 4, 0));
             comboBox.setFocusable(false);
 
-            // Safe preferred size setting
-            Dimension size = comboBox.getPreferredSize();
-            comboBox.setPreferredSize(new Dimension(size.width, 30));
-
-            // Renderer font override
             comboBox.setRenderer(new DefaultListCellRenderer() {
                 @Override
                 public Component getListCellRendererComponent(JList<?> list, Object value,
                                                               int index, boolean isSelected, boolean cellHasFocus) {
-                    JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                    renderer.setFont(fieldFont);
-                    renderer.setBorder(BorderFactory.createEmptyBorder(4, 5, 2, 5));
-                    return renderer;
+                JLabel renderer = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                renderer.setFont(fieldFont);
+                renderer.setBorder(BorderFactory.createEmptyBorder(4, 5, 2, 5));
+                return renderer;
                 }
             });
 
@@ -103,9 +100,9 @@ public class Helper {
 
             if (spinner.getEditor() instanceof JSpinner.DefaultEditor editor) {
                 JFormattedTextField textField = editor.getTextField();
-                textField.setFont(fieldFont);
-                textField.setHorizontalAlignment(SwingConstants.CENTER);
-                textField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+                    textField.setFont(fieldFont);
+                    textField.setHorizontalAlignment(SwingConstants.CENTER);
+                    textField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
             }
         }
     }
@@ -113,13 +110,14 @@ public class Helper {
     // Style GBC - Dashboard, AddDataCategories (Income, Savings, Budget, Expense) Panels
     public static GridBagConstraints getGbc(int x, int y, int fill, int anchor, int weight){
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = x;
-        gbc.gridy = y;
-        gbc.insets = new Insets(5,5,5,5);
-        gbc.anchor = anchor;
-        gbc.fill = fill;
-        gbc.weightx = weight;
-        return gbc;
+            gbc.gridx = x;
+            gbc.gridy = y;
+            gbc.insets = new Insets(5,5,5,5);
+            gbc.anchor = anchor;
+            gbc.fill = fill;
+            gbc.weightx = weight;
+
+            return gbc;
     }
 
     // Style ProgressbarColor - Dashboard Panel
@@ -127,16 +125,14 @@ public class Helper {
         if (percentage < 0) percentage = 0;
         if (percentage > 1) percentage = 1;
 
-        int red = (int) (percentage * 255);
-        int green = (int) ((1 - percentage) * 255);
-        int blue = 0;
+        int red      = (int) (percentage * 255);
+        int green    = (int) ((1 - percentage) * 255);
+        int blue     = 0;
+        double light = 0.1;
 
-        // Mix with white (255,255,255) to lighten the color, factor 0.5 means 50% white
-        double lightenFactor = 0.1;
-
-        red = (int) (red + (255 - red) * lightenFactor);
-        green = (int) (green + (255 - green) * lightenFactor);
-        blue = (int) (blue + (255 - blue) * lightenFactor);
+        red   = (int) (red + (255 - red) * light);
+        green = (int) (green + (255 - green) * light);
+        blue  = (int) (blue + (255 - blue) * light);
 
         return new Color(red, green, blue);
     }
@@ -146,14 +142,13 @@ public class Helper {
         table.setRowHeight(25);
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
-
         table.getColumnModel().getColumn(0).setPreferredWidth(100); // Date
         table.getColumnModel().getColumn(1).setPreferredWidth(200); // Category
         table.getColumnModel().getColumn(2).setPreferredWidth(130); // Amount
         table.getColumnModel().getColumn(3).setPreferredWidth(300); // Notes
 
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+            renderer.setHorizontalAlignment(SwingConstants.CENTER);
 
         for(int i = 0; i < table.getColumnCount(); i++){
             table.getTableHeader().setDefaultRenderer(renderer);
@@ -161,20 +156,19 @@ public class Helper {
         }
 
         JTableHeader header = table.getTableHeader();
-        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            header.setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(
                     JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
-                JLabel lbl = (JLabel) super.getTableCellRendererComponent(
-                        table, value, isSelected, hasFocus, row, column);
+        JLabel lbl = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            lbl.setFont(new Font("Arial", Font.BOLD, 14));
+            lbl.setBackground(new Color(107, 107, 107));
+            lbl.setForeground(Color.WHITE);
+            lbl.setHorizontalAlignment(SwingConstants.CENTER);
+            lbl.setOpaque(true);
 
-                lbl.setFont(new Font("Arial", Font.BOLD, 14));
-                lbl.setBackground(new Color(107, 107, 107));
-                lbl.setForeground(Color.WHITE);
-                lbl.setHorizontalAlignment(SwingConstants.CENTER);
-                lbl.setOpaque(true);
-                return lbl;
+            return lbl;
             }
         });
     }

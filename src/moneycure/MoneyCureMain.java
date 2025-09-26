@@ -9,8 +9,10 @@ import java.util.logging.*;
 
 public class MoneyCureMain {
 
+    // ===== FIELDS =====
     private static final Logger LOGGER = Logger.getLogger(MoneyCureMain.class.getName());
 
+    // ===== MAIN METHOD =====
     public static void main(String[] args) {
 
         // ===== UI MANAGER =====
@@ -49,7 +51,7 @@ public class MoneyCureMain {
                     splash.dispose();   // Close splash when DB setup is done
 
                     try{
-                        get();          // rethrow exception if createTables() failed
+                        get();
 
                         // Launch main application
                         MainFrame mainFrame = new MainFrame();
@@ -59,9 +61,9 @@ public class MoneyCureMain {
                     } catch (Exception e){
                         LOGGER.log(Level.SEVERE, "Database setup failed", e);
                         JOptionPane.showMessageDialog(
-                                null,
-                                "Failed to initialize the database. The application will exit.",
-                                "Database Error", JOptionPane.ERROR_MESSAGE
+                            null,
+                            "Failed to initialize the database. The application will exit.",
+                            "Database Error", JOptionPane.ERROR_MESSAGE
                         );
                         System.exit(1);
                     }

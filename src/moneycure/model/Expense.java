@@ -3,11 +3,13 @@ package moneycure.model;
 
 public class Expense {
 
+    // ===== FIELDS =====
     private final String date;
     private final String category;
     private final double amount;
     private final String notes;
 
+    // ===== CONSTRUCTOR =====
     public Expense(String date, String category, double amount, String notes){
         this.date     = date;
         this.category = category;
@@ -15,13 +17,7 @@ public class Expense {
         this.notes    = notes;
     }
 
-    public Expense (String category, double amount) {
-        this.category = category;
-        this.amount   = amount;
-        this.date     = null;
-        this.notes    = null;
-    }
-
+    // ===== GETTERS =====
     public String getDate(){ return date; }
     public String getCategory(){ return category; }
     public double getAmount(){ return amount; }
