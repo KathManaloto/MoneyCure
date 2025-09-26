@@ -7,6 +7,9 @@ import moneycure.view.*;
 import moneycure.view.category.*;
 import moneycure.view.feature.*;
 
+import javax.swing.*;
+import java.util.Date;
+
 public class MoneyCureController {
 
     // ===== FIELDS =====
@@ -83,6 +86,20 @@ public class MoneyCureController {
             ExpensePanel expensePanel = addDataPanel.getExpensePanel();
             expenseController = new ExpenseController(expensePanel, expenseDAO, dashboardPanel);
         }
+    }
+
+    public static <E> void clearFields(JSpinner dateSpinner, JTextField txtAmount, JTextField txtNotes, JComboBox<E> comboBox) {
+        if (dateSpinner != null) { dateSpinner.setValue(new Date());}
+        if (txtAmount != null) { txtAmount.setText(""); }
+        if (txtNotes != null) { txtNotes.setText(""); }
+        if (comboBox != null && comboBox.getItemCount() > 0) {
+            comboBox.setSelectedIndex(0);
+        }
+    }
+
+    public static String getSelectedDate(JSpinner dateSpinner){
+        Date date = (Date) dateSpinner.getValue();
+        return new java.text.SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 }
 

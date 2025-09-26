@@ -1,6 +1,7 @@
 //Reads input from the View, builds a Model, calls DAO.
 package moneycure.controller.features;
 
+import moneycure.controller.MoneyCureController;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
@@ -39,7 +40,7 @@ public class BudgetController {
 
         try {
             // DATE
-            String date = budgetPanel.getSelectedDate();
+            String date = MoneyCureController.getSelectedDate(budgetPanel.getDateSpinner());
 
             if (date.isEmpty()) {
                 JOptionPane.showMessageDialog(
@@ -91,8 +92,8 @@ public class BudgetController {
                 JOptionPane.showMessageDialog(budgetPanel, "Budget added!");
 
                 loadRecentBudgets();
-                budgetPanel.clearFields();
                 dashboardPanel.refreshData();
+                MoneyCureController.clearFields(budgetPanel.getDateSpinner(), budgetPanel.getTxtAmountBudget(), budgetPanel.getTxtNotesBudget(), budgetPanel.getBudgetCategoryCombo());
 
             } else {
                 JOptionPane.showMessageDialog(budgetPanel, "Failed to add budget.");

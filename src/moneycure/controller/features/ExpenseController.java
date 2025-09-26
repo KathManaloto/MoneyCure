@@ -1,6 +1,7 @@
 //Reads input from the View, builds a Model, calls DAO.
 package moneycure.controller.features;
 
+import moneycure.controller.MoneyCureController;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
@@ -64,6 +65,7 @@ public class ExpenseController {
                         "Please enter an amount.",
                         "Validation Error",
                         JOptionPane.WARNING_MESSAGE);
+
                     return;
                 }
 
@@ -71,7 +73,12 @@ public class ExpenseController {
                     amount = Double.parseDouble(amountText);
 
                     if (amount <= 0) {
-                        JOptionPane.showMessageDialog(expensePanel, "Amount must be greater than zero.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(
+                                expensePanel,
+                                "Amount must be greater than zero.",
+                                "Validation Error",
+                                JOptionPane.WARNING_MESSAGE);
+
                         return;
                     }
 
@@ -94,10 +101,12 @@ public class ExpenseController {
             boolean success = expenseDAO.addExpense(expense);
 
                 if (success) {
-                    dashboardPanel.refreshData();
                     JOptionPane.showMessageDialog(expensePanel, "Expense added!");
-                    expensePanel.clearFields();
+
                     loadRecentExpenses();
+                    MoneyCureController.clearFields(expensePanel.getDateSpinner(),expensePanel.getTxtAmountExpenses(),expensePanel.getTxtNotesExpenses(),expensePanel.getExpensesCategoryCombo());
+                    dashboardPanel.refreshData();
+
                 } else {
                     JOptionPane.showMessageDialog(expensePanel, "Failed to add expense.");
                 }

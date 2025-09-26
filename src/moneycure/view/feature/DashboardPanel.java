@@ -85,6 +85,7 @@ public class DashboardPanel extends JPanel {
     private void updateSummary(Map<String, Double> expenses){
         double totalExpenses = expenses.values().stream().mapToDouble(Double::doubleValue).sum();
         expensesPanel.setValue(totalExpenses);
+        expensesPanel.setToolTipText("Total monthly expenses");
     }
 
     // ===== GETTERS & SETTERS =====

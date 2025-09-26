@@ -79,8 +79,7 @@ public class BudgetPanel extends JPanel {
             // SET STYLE TITLE AND FORM PANEL
             formPanel.setBackground(new Color(218, 218, 218));
             Helper.styleTitleLabel(lblBudget);
-            Helper.styleFont(formPanel, new Font("Arial", Font.BOLD,14),
-                    new Font("Segoe UI Emoji", Font.PLAIN, 12));
+            Helper.styleFont(formPanel, new Font("Arial", Font.BOLD,14), new Font("Segoe UI Emoji", Font.PLAIN, 12));
 
             // CREATE CONTENT SUMMARY PANEL
             JPanel contentSummaryPanel = new JPanel(new BorderLayout());
@@ -117,25 +116,15 @@ public class BudgetPanel extends JPanel {
     // Clear RecentExpensesTable
     public void clearBudgetTable(){ budgetTableModel.setRowCount(0); }
 
-    // Clear TextFields
-    public void clearFields() {
-        if (dateSpinner != null) { dateSpinner.setValue(new Date());}
-        if (txtAmountBudget != null) { txtAmountBudget.setText(""); }
-        if (txtNotesBudget != null) { txtNotesBudget.setText(""); }
-        if (budgetCategoryCombo != null && budgetCategoryCombo.getItemCount() > 0) {
-            budgetCategoryCombo.setSelectedIndex(0);
-        }
-    }
-
     // ===== GETTERS =====
     public String getSelectedDate(){
         Date date = (Date) dateSpinner.getValue();
         return new java.text.SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 
+    public JSpinner getDateSpinner(){ return dateSpinner; }
     public JComboBox<ExpenseBudgetCategory> getBudgetCategoryCombo(){ return budgetCategoryCombo; }
     public JButton getBtnAddBudget(){ return btnAddBudget; }
     public JTextField getTxtAmountBudget(){ return txtAmountBudget; }
     public JTextField getTxtNotesBudget(){ return txtNotesBudget; }
 }
-

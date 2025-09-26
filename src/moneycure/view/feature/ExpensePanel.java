@@ -120,22 +120,13 @@ public class ExpensePanel extends JPanel {
     // Clear RecentExpensesTable
     public void clearExpenseTable(){ expensesTableModel.setRowCount(0); }
 
-    // Clear TextFields
-    public void clearFields() {
-        if (dateSpinner != null) { dateSpinner.setValue(new Date());}
-        if (txtAmountExpenses != null) { txtAmountExpenses.setText(""); }
-        if (txtNotesExpenses != null) { txtNotesExpenses.setText(""); }
-        if (expensesCategoryCombo != null && expensesCategoryCombo.getItemCount() > 0) {
-            expensesCategoryCombo.setSelectedIndex(0);
-        }
-    }
-
     // ===== GETTERS =====
     public String getSelectedDate(){
         Date date = (Date) dateSpinner.getValue();
         return new java.text.SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 
+    public JSpinner getDateSpinner(){ return dateSpinner; }
     public JComboBox<ExpenseBudgetCategory> getExpensesCategoryCombo(){ return expensesCategoryCombo; }
     public JButton getBtnAddExpense(){ return btnAddExpense; }
     public JTextField getTxtAmountExpenses(){ return txtAmountExpenses; }
