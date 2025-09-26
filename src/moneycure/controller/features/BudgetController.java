@@ -4,8 +4,10 @@ package moneycure.controller.features;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
+
 import javax.swing.*;
-import java.util.List;
+import java.util.*;
+import java.util.logging.*;
 
 public class BudgetController {
 
@@ -14,12 +16,15 @@ public class BudgetController {
     private final BudgetPanel budgetPanel;
     private final DashboardPanel dashboardPanel;
 
+    private static final Logger LOGGER = Logger.getLogger(BudgetController.class.getName());
+
     // ===== CONSTRUCTOR =====
     public BudgetController(BudgetPanel budgetPanel, BudgetDAO budgetDAO, DashboardPanel dashboardPanel) {
         this.budgetPanel = budgetPanel;
         this.budgetDAO = budgetDAO;
         this.dashboardPanel = dashboardPanel;
-        System.out.println("BudgetController initialized!"); // DEBUG
+
+        LOGGER.info("BudgetController initialized!");
         initController();
         loadRecentBudgets();
     }
@@ -27,7 +32,6 @@ public class BudgetController {
     // ===== INIT CONTROLLER =====
     private void initController() {
         budgetPanel.getBtnAddBudget().addActionListener(e -> addBudget());
-
     }
 
     // === ON ADD BUTTON CLICK ===
@@ -84,16 +88,15 @@ public class BudgetController {
             boolean success = budgetDAO.addBudget(budget);
 
             if (success) {
-                dashboardPanel.refreshData();
                 JOptionPane.showMessageDialog(budgetPanel, "Budget added!");
-                budgetPanel.clearFields();
+
                 loadRecentBudgets();
+                budgetPanel.clearFields();
                 dashboardPanel.refreshData();
 
             } else {
                 JOptionPane.showMessageDialog(budgetPanel, "Failed to add budget.");
             }
-
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(
@@ -101,10 +104,8 @@ public class BudgetController {
                     "Error adding expense: " + ex.getLocalizedMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE
             );
-            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE,"Error adding budget",ex);
         }
-
-
     }
 
     private void loadRecentBudgets() {

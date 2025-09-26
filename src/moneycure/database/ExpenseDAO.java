@@ -4,10 +4,14 @@ package moneycure.database;
 
 import moneycure.model.*;
 import java.sql.*;
-import java.time.Month;
+import java.time.*;
 import java.util.*;
+import java.util.logging.*;
 
 public class ExpenseDAO {
+
+    // ===== FIELDS =====
+    private static final Logger LOGGER = Logger.getLogger(ExpenseDAO.class.getName());
 
     // ===== CREATE/ADD DATA =====
     public boolean addExpense(Expense expense) {
@@ -23,11 +27,12 @@ public class ExpenseDAO {
             preparedStatement.setString(4, expense.getNotes());
 
             int rows = preparedStatement.executeUpdate();
-            System.out.println("Rows inserted: " + rows);
+            LOGGER.info("Expense added successfully.");
+
             return rows > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE,"Error adding expense",e);
             return false;
         }
     }
@@ -37,18 +42,14 @@ public class ExpenseDAO {
         List<Expense> list = new ArrayList<>();
 
         String sql = "SELECT date, category, amount, notes FROM expenses " +
-                "ORDER BY date DESC, id DESC";
+                     "ORDER BY date DESC, id DESC";
 
-        if(limit != null){
-            sql += " LIMIT ?";
-        }
+        if(limit != null){ sql += " LIMIT ?"; }
 
         try(Connection conn = DBConnection.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
-            if(limit != null){
-                preparedStatement.setInt(1,limit);
-            }
+            if(limit != null){ preparedStatement.setInt(1,limit); }
 
             try(ResultSet rs = preparedStatement.executeQuery()){
 
@@ -61,22 +62,23 @@ public class ExpenseDAO {
                     ));
                 }
             }
+
         } catch(SQLException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE,"Error retrieving expenses",e);
         }
+
         return list;
     }
 
     // totals per category
     public Map<String,Double> getMonthlyExpenses(Month month, int year){
-
         Map<String,Double> result = new HashMap<>();
 
         String sql = "SELECT category, SUM(amount) AS total " +
-                "FROM expenses " +
-                "WHERE strftime('%m', date) = ? " +
-                "AND strftime('%Y',date) = ? " +
-                "GROUP BY category";
+                     "FROM expenses " +
+                     "WHERE strftime('%m', date) = ? " +
+                     "AND strftime('%Y',date) = ? " +
+                     "GROUP BY category";
 
         try(Connection conn = DBConnection.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(sql)){
@@ -87,44 +89,16 @@ public class ExpenseDAO {
             try(ResultSet rs = preparedStatement.executeQuery()){
                 while(rs.next()){
                     result.put(
-                            rs.getString("category"),
-                            rs.getDouble("total")
+                        rs.getString("category"),
+                        rs.getDouble("total")
                     );
                 }
             }
 
         } catch(SQLException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE,"Error retrieving expenses",e);
         }
 
         return result;
-    }
-
-    //actual list of transactions
-    public List<Expense> getExpensesByMonth(Month month, int year){
-        String sql = "SELECT category, amount FROM expenses " +
-                "WHERE strftime('%m',\"date\") = ? " +
-                "AND strftime('%Y',\"date\") = ?";
-
-        List<Expense> expenses = new ArrayList<>();
-
-        try(Connection conn = DBConnection.getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(sql)){
-            preparedStatement.setString(1,String.format("%02d",month.getValue()));
-            preparedStatement.setString(2, String.valueOf(year));
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while(rs.next()){
-                expenses.add(new Expense(
-                        rs.getString("category"),
-                        rs.getDouble("amount")));
-            }
-
-        } catch(SQLException e){
-            e.printStackTrace();
-        }
-
-        return expenses;
     }
 }

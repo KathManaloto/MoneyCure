@@ -60,6 +60,8 @@ public class MoneyCureController {
     // ===== ADD_DATA FEATURES =====
     private void showIncome() { addDataPanel.showCard(AddDataPanel.INCOME); }
     private void showSavings() { addDataPanel.showCard(AddDataPanel.SAVINGS); }
+
+    // ===== SHOW BUDGET =====
     private void showBudget() {
         addDataPanel.showCard(AddDataPanel.BUDGET);
 
@@ -72,6 +74,7 @@ public class MoneyCureController {
         }
     }
 
+    // ===== SHOW EXPENSES =====
     private void showExpenses() {
         addDataPanel.showCard(AddDataPanel.EXPENSES);
 

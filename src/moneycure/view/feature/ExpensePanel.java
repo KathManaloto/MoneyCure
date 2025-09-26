@@ -3,6 +3,7 @@ package moneycure.view.feature;
 
 import moneycure.model.*;
 import moneycure.view.*;
+
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;

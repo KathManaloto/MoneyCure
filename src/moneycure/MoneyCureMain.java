@@ -1,7 +1,7 @@
 package moneycure;
 
-import moneycure.controller.MoneyCureController;
-import moneycure.view.MainFrame;
+import moneycure.controller.*;
+import moneycure.view.*;
 import moneycure.database.*;
 
 import javax.swing.*;

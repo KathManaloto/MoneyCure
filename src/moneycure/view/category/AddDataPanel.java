@@ -30,39 +30,39 @@ public class AddDataPanel extends JPanel {
     private void initComponents(){
         setLayout(new BorderLayout(10,0));
 
-        // ===== TOP PANEL =====
-        JPanel topPanel = new JPanel(new GridLayout(1,4,10,10));
-        Helper.styleTopPanel(topPanel);
+            // ===== TOP PANEL =====
+            JPanel topPanel = new JPanel(new GridLayout(1,4,10,10));
 
-        // ----- TopPanel Buttons -----
-        btnIncome   = new JButton("Add Income");
-        btnSavings  = new JButton("Add Savings");
-        btnBudget   = new JButton("Set Budget");
-        btnExpenses = new JButton("Add Expenses");
+                // ----- TopPanel Buttons -----
+                btnIncome   = new JButton("Add Income");
+                btnSavings  = new JButton("Add Savings");
+                btnBudget   = new JButton("Set Budget");
+                btnExpenses = new JButton("Add Expenses");
 
-        Helper.styleTopButtons(btnIncome);
-        Helper.styleTopButtons(btnSavings);
-        Helper.styleTopButtons(btnBudget);
-        Helper.styleTopButtons(btnExpenses);
+                Helper.styleTopPanel(topPanel);
+                Helper.styleTopButtons(btnIncome);
+                Helper.styleTopButtons(btnSavings);
+                Helper.styleTopButtons(btnBudget);
+                Helper.styleTopButtons(btnExpenses);
 
-        topPanel.add(btnIncome);
-        topPanel.add(btnSavings);
-        topPanel.add(btnBudget);
-        topPanel.add(btnExpenses);
+            topPanel.add(btnIncome);
+            topPanel.add(btnSavings);
+            topPanel.add(btnBudget);
+            topPanel.add(btnExpenses);
 
-        // ===== CONTENT AREA (CardLayout) =====
-        cardLayout   = new CardLayout();
-        contentPanel = new JPanel(cardLayout);
+            // ===== CONTENT AREA (CardLayout) =====
+            cardLayout   = new CardLayout();
+            contentPanel = new JPanel(cardLayout);
 
-        IncomePanel incomePanel   = new IncomePanel();
-        SavingsPanel savingsPanel = new SavingsPanel();
-        budgetPanel  = new BudgetPanel();
-        expensePanel = new ExpensePanel();
+                IncomePanel incomePanel   = new IncomePanel();
+                SavingsPanel savingsPanel = new SavingsPanel();
+                budgetPanel  = new BudgetPanel();
+                expensePanel = new ExpensePanel();
 
-        contentPanel.add(incomePanel,INCOME);
-        contentPanel.add(savingsPanel,SAVINGS);
-        contentPanel.add(budgetPanel,BUDGET);
-        contentPanel.add(expensePanel,EXPENSES);
+            contentPanel.add(incomePanel,INCOME);
+            contentPanel.add(savingsPanel,SAVINGS);
+            contentPanel.add(budgetPanel,BUDGET);
+            contentPanel.add(expensePanel,EXPENSES);
 
         add(topPanel,BorderLayout.NORTH);
         add(contentPanel,BorderLayout.CENTER);

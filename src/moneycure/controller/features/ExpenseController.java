@@ -4,8 +4,10 @@ package moneycure.controller.features;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
+
 import javax.swing.*;
 import java.util.List;
+import java.util.logging.*;
 
 public class ExpenseController {
 
@@ -14,12 +16,15 @@ public class ExpenseController {
     private final ExpensePanel expensePanel;
     private final DashboardPanel dashboardPanel;
 
+    private static final Logger LOGGER = Logger.getLogger(ExpenseController.class.getName());
+
     // ===== CONSTRUCTOR =====
     public ExpenseController(ExpensePanel expensePanel, ExpenseDAO expenseDAO, DashboardPanel dashboardPanel) {
         this.expensePanel = expensePanel;
         this.expenseDAO = expenseDAO;
         this.dashboardPanel = dashboardPanel;
-        System.out.println("ExpenseController initialized!"); // DEBUG
+
+        LOGGER.info("ExpenseController initialized!");
         initController();
         loadRecentExpenses();
     }
@@ -62,7 +67,7 @@ public class ExpenseController {
                     return;
                 }
 
-            try {
+                try {
                     amount = Double.parseDouble(amountText);
 
                     if (amount <= 0) {
@@ -103,12 +108,12 @@ public class ExpenseController {
                 "Error adding expense: " + ex.getLocalizedMessage(),
                 "Error", JOptionPane.ERROR_MESSAGE
             );
-            ex.printStackTrace();
+
+            LOGGER.log(Level.SEVERE,"Error adding expense",ex);
         }
     }
 
     private void loadRecentExpenses() {
-
         expensePanel.clearExpenseTable();
 
         List<Expense> recentExpenses = expenseDAO.getExpenses(10);

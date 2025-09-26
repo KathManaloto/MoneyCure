@@ -2,7 +2,8 @@
 package moneycure.view.feature;
 
 import moneycure.model.*;
-import moneycure.view.Helper;
+import moneycure.view.*;
+
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
@@ -18,10 +19,7 @@ public class BudgetPanel extends JPanel {
     private JButton btnAddBudget;
 
     // ===== CONSTRUCTOR =====
-    public BudgetPanel(){
-
-        initComponents();
-    }
+    public BudgetPanel(){ initComponents();}
 
     // ===== INIT COMPONENTS =====
     private void initComponents(){
@@ -95,7 +93,7 @@ public class BudgetPanel extends JPanel {
                 JTable budgetTable = new JTable(budgetTableModel);
 
                 // scrollPane
-        JScrollPane scrollPane = new JScrollPane(budgetTable);
+                JScrollPane scrollPane = new JScrollPane(budgetTable);
                 contentSummaryPanel.add(scrollPane,BorderLayout.CENTER);
 
                 // wrap formPanel and contentSummaryPanel in centerPanel for better spacing

@@ -1,26 +1,32 @@
 package moneycure.database;
 
 import java.sql.*;
+import java.util.logging.*;
 
 public class SetupDatabase {
 
+    private static final Logger LOGGER = Logger.getLogger(SetupDatabase.class.getName());
+
+    // CREATE TABLES
     public static void createTables() {
 
+        // EXPENSES TABLE
         String sqlExpenses =
-                "CREATE TABLE IF NOT EXISTS expenses ("      +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "date TEXT NOT NULL, "                   +
-                    "category TEXT NOT NULL, "               +
-                    "amount REAL NOT NULL, "                 +
-                    "notes TEXT)";
+            "CREATE TABLE IF NOT EXISTS expenses ("      +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "date TEXT NOT NULL, "                   +
+            "category TEXT NOT NULL, "               +
+            "amount REAL NOT NULL, "                 +
+            "notes TEXT)";
 
+        // BUDGET TABLE
         String sqlBudget =
-                "CREATE TABLE IF NOT EXISTS budget ("        +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "date TEXT NOT NULL, "                   +
-                    "category TEXT NOT NULL, "               +
-                    "amount REAL NOT NULL, "                 +
-                    "notes TEXT)";
+            "CREATE TABLE IF NOT EXISTS budget ("        +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "date TEXT NOT NULL, "                   +
+            "category TEXT NOT NULL, "               +
+            "amount REAL NOT NULL, "                 +
+            "notes TEXT)";
 
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement()) {
@@ -35,7 +41,7 @@ public class SetupDatabase {
 
         } catch (SQLException e) {
             System.err.println("Error creating tables: " + e.getMessage());
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE,"Error creating tables",e);
         }
     }
 }

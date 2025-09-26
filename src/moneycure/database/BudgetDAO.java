@@ -5,12 +5,13 @@ package moneycure.database;
 import moneycure.model.*;
 
 import java.sql.*;
-import java.time.Month;
+import java.time.*;
 import java.util.*;
 import java.util.logging.*;
 
 public class BudgetDAO {
 
+    // ===== FIELDS =====
     private static final Logger LOGGER = Logger.getLogger(BudgetDAO.class.getName());
 
     // ===== CREATE/ADD DATA =====
@@ -19,7 +20,7 @@ public class BudgetDAO {
         String sql = "INSERT INTO budget (date, category, amount, notes) VALUES (?,?,?,?)";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
             preparedStatement.setString(1, budget.getDate());
             preparedStatement.setString(2, budget.getCategory());
@@ -28,6 +29,7 @@ public class BudgetDAO {
 
             int rows = preparedStatement.executeUpdate();
             LOGGER.info("Budget added successfully");
+
             return rows > 0;
 
         } catch (SQLException e) {
@@ -41,77 +43,43 @@ public class BudgetDAO {
         List<Budget> list = new ArrayList<>();
 
         String sql = "SELECT date, category, amount, notes FROM budget " +
-                "ORDER BY date DESC, id DESC";
+                     "ORDER BY date DESC, id DESC";
 
-        if (limit != null) {
-            sql += " LIMIT ?";
-        }
+        if (limit != null) { sql += " LIMIT ?";}
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
-            if (limit != null) {
-                preparedStatement.setInt(1, limit);
-            }
+            if (limit != null) { preparedStatement.setInt(1, limit); }
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
 
                 while (rs.next()) {
                     list.add(new Budget(
-                            rs.getString("date"),
-                            rs.getString("category"),
-                            rs.getDouble("amount"),
-                            rs.getString("notes")
-                    ));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    //actual list of budget transactions
-    public List<Budget> getBudgetsByMonth(Month month, int year) {
-        String sql = "SELECT date, category, amount, notes FROM budget " +
-                "WHERE strftime('%m', date) = ? " +
-                "AND strftime('%Y', date) = ? " +
-                "ORDER BY date ASC";
-
-        List<Budget> budgets = new ArrayList<>();
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
-
-            preparedStatement.setString(1, String.format("%02d", month.getValue()));
-            preparedStatement.setString(2, String.valueOf(year));
-
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                budgets.add(new Budget(
                         rs.getString("date"),
                         rs.getString("category"),
                         rs.getDouble("amount"),
                         rs.getString("notes")
-                ));
+                    ));
+                }
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE,"Error retrieving budget",e);
         }
 
-        return budgets;
+        return list;
     }
 
-    // totals per category
+    // ===== GET MONTHLY BUDGET PER CATEGORY =====
     public Map<String, Double> getMonthlyBudget(Month month, int year) {
         Map<String, Double> result = new HashMap<>();
 
         String sql = "SELECT category, SUM(amount) AS total " +
-                "FROM budget " +
-                "WHERE strftime('%m', date) = ? " +
-                "AND strftime('%Y',date) = ? " +
-                "GROUP BY category";
+                     "FROM budget " +
+                     "WHERE strftime('%m', date) = ? " +
+                     "AND strftime('%Y',date) = ? " +
+                     "GROUP BY category";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
@@ -122,13 +90,13 @@ public class BudgetDAO {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 result.put(
-                        rs.getString("category"),
-                        rs.getDouble("total")
+                    rs.getString("category"),
+                    rs.getDouble("total")
                 );
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE,"Error retrieving budget",e);
         }
 
         return result;
