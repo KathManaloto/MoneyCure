@@ -43,7 +43,6 @@ public class DashboardPanel extends JPanel {
                 expensesPanel = new SummaryPanel("Expenses");
                 SummaryPanel savingsPanel = new SummaryPanel("Savings");
 
-
                 Helper.stylePanelBackground(monthPanel, balancePanel, expensesPanel, savingsPanel);
                 Helper.styleTopPanel(topPanel);
 
@@ -80,7 +79,13 @@ public class DashboardPanel extends JPanel {
         progressBarsPanel.updateData(budgets, expenses);
 
         double totalExpenses = expenses.values().stream().mapToDouble(Double::doubleValue).sum();
+        double totalIncome = incomeDAO.getMonthlyIncomeTotal(currentMonth, currentYear);
+
+        double balance = totalIncome - totalExpenses;
+
         expensesPanel.setValue(totalExpenses);
+        balancePanel.setValue(balance);
+
         revalidate();
         repaint();
     }

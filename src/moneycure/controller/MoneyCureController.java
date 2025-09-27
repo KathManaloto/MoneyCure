@@ -68,7 +68,7 @@ public class MoneyCureController {
         if(incomeController == null){
             IncomeDAO incomeDAO     = new IncomeDAO();
             IncomePanel incomePanel = addDataPanel.getIncomePanel();
-            incomeController = new IncomeController(incomePanel,incomeDAO);
+            incomeController = new IncomeController(incomePanel,incomeDAO,dashboardPanel);
         }
     }
 

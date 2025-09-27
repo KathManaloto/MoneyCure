@@ -2,9 +2,7 @@ package moneycure.database;
 
 import moneycure.model.*;
 import java.sql.*;
-import java.time.Month;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.*;
 import java.util.logging.*;
 
 public class IncomeDAO {
@@ -33,12 +31,30 @@ public class IncomeDAO {
         }
     }
 
-    public Map<String, Double> getMonthlyIncome(Month month, int year){
+    public double getMonthlyIncomeTotal(Month month, int year){
 
-        Map<String, Double> incomes = new HashMap<>();
-        String sql = "SELECT incomeSource, SUM(amount) FROM income " +
+        String sql = "SELECT SUM(amount) FROM income " +
                      "WHERE strftime('%m', date) = ? " +
-                     "AND strftime('%Y', date) = ? " +
-                     "GROUP BY incomeSource";
+                     "AND strftime('%Y', date) = ? ";
+
+        double totalIncome = 0.0;
+
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+
+            preparedStatement.setString(1, String.format("%02d",month.getValue()));
+            preparedStatement.setString(2, String.valueOf(year));
+
+            try (ResultSet rs = preparedStatement.executeQuery()){
+                if(rs.next()){
+                    totalIncome = rs.getDouble(1);
+                }
+            }
+
+        } catch (SQLException e){
+            LOGGER.log(Level.SEVERE,"Error fetching total income",e);
+        }
+
+        return totalIncome;
     }
 }

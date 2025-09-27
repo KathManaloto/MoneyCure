@@ -13,11 +13,14 @@ public class IncomeController {
 
     private final IncomeDAO incomeDAO;
     private final IncomePanel incomePanel;
+    private final DashboardPanel dashboardPanel;
+
     private static final Logger LOGGER = Logger.getLogger(IncomeController.class.getName());
 
-    public IncomeController(IncomePanel incomePanel, IncomeDAO incomeDAO){
-        this.incomePanel = incomePanel;
-        this.incomeDAO   = incomeDAO;
+    public IncomeController(IncomePanel incomePanel, IncomeDAO incomeDAO, DashboardPanel dashboardPanel){
+        this.incomePanel    = incomePanel;
+        this.incomeDAO      = incomeDAO;
+        this.dashboardPanel = dashboardPanel;
 
         initController();
     }
@@ -89,6 +92,7 @@ public class IncomeController {
 
                 if(success){
                     JOptionPane.showMessageDialog(incomePanel, "Income added!");
+                    dashboardPanel.refreshData();
                 }
 
         } catch (Exception e){
