@@ -91,6 +91,7 @@ public class IncomePanel extends JPanel {
 
     // ===== GETTERS =====
     public JButton getBtnSubmitIncome(){ return btnSubmitIncome; }
+    public JButton getBtnCancelIncome(){ return btnCancelIncome; }
     public JSpinner getDateSpinner(){ return dateSpinner; }
     public JComboBox<String> getIncomeCombo(){ return incomeCombo; }
     public JTextField getTxtAmountIncome(){ return txtAmountIncome; }

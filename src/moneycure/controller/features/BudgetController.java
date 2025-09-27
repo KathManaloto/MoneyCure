@@ -1,7 +1,7 @@
 //Reads input from the View, builds a Model, calls DAO.
 package moneycure.controller.features;
 
-import moneycure.controller.MoneyCureController;
+import moneycure.controller.*;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
@@ -48,6 +48,7 @@ public class BudgetController {
                     "Date is required.",
                     "Validation Error",
                     JOptionPane.WARNING_MESSAGE);
+
                 return;
             }
 
@@ -65,17 +66,30 @@ public class BudgetController {
                     "Please enter an amount.",
                     "Validation Error",
                     JOptionPane.WARNING_MESSAGE);
+
                 return;
             }
 
             try {
                 amount = Double.parseDouble(amountText);
+
+                if (amount <= 0) {
+                    JOptionPane.showMessageDialog(
+                        budgetPanel,
+                        "Amount must be greater than zero.",
+                        "Validation Error",
+                        JOptionPane.WARNING_MESSAGE);
+
+                    return;
+                }
+
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(
                     budgetPanel,
                     "Amount must be a valid number.",
                     "Validation Error",
                     JOptionPane.WARNING_MESSAGE);
+
                 return;
             }
 
@@ -101,10 +115,11 @@ public class BudgetController {
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(
-                    budgetPanel,
-                    "Error adding expense: " + ex.getLocalizedMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE
+                budgetPanel,
+                "Error adding expense: " + ex.getLocalizedMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE
             );
+
             LOGGER.log(Level.SEVERE,"Error adding budget",ex);
         }
     }

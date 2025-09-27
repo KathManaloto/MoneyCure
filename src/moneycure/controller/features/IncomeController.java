@@ -1,12 +1,12 @@
 package moneycure.controller.features;
 
-import moneycure.controller.MoneyCureController;
-import moneycure.database.IncomeDAO;
-import moneycure.model.Income;
-import moneycure.view.feature.IncomePanel;
+import moneycure.controller.*;
+import moneycure.database.*;
+import moneycure.model.*;
+import moneycure.view.feature.*;
 
 import javax.swing.*;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.*;
 
 public class IncomeController {
@@ -23,10 +23,11 @@ public class IncomeController {
     }
 
     private void initController(){
-        incomePanel.getBtnSubmitIncome().addActionListener(e -> onSubmitIncome());
+        incomePanel.getBtnSubmitIncome().addActionListener(e -> onSubmitButton());
+        incomePanel.getBtnCancelIncome().addActionListener(e -> onCancelButton());
     }
 
-    private void onSubmitIncome(){
+    private void onSubmitButton(){
 
         try{
             // date
@@ -71,14 +72,14 @@ public class IncomeController {
                     }
 
                 }catch(NumberFormatException e){
-                        JOptionPane.showMessageDialog(
-                            incomePanel,
-                            "Amount must be a valid number.",
-                            "Validation Error",
-                            JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(
+                        incomePanel,
+                        "Amount must be a valid number.",
+                        "Validation Error",
+                        JOptionPane.WARNING_MESSAGE);
 
-                        return;
-                    }
+                    return;
+                }
 
                 // notes
                 String notes = incomePanel.getTxtNotesIncome().getText();
@@ -88,8 +89,6 @@ public class IncomeController {
 
                 if(success){
                     JOptionPane.showMessageDialog(incomePanel, "Income added!");
-
-
                 }
 
         } catch (Exception e){
@@ -103,5 +102,12 @@ public class IncomeController {
         }
     }
 
-
+    private void onCancelButton(){
+        MoneyCureController.clearFields(
+            incomePanel.getDateSpinner(),
+            incomePanel.getTxtAmountIncome(),
+            incomePanel.getTxtNotesIncome(),
+            incomePanel.getIncomeCombo()
+        );
+    }
 }

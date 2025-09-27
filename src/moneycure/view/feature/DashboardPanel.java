@@ -12,12 +12,14 @@ import java.util.*;
 public class DashboardPanel extends JPanel {
 
     // ===== FIELDS =====
+    private final IncomeDAO incomeDAO;
     private final BudgetDAO budgetDAO;
     private final ExpenseDAO expenseDAO;
 
     private final MonthSelectorPanel monthPanel;
     private final int currentYear;
 
+    private final SummaryPanel balancePanel;
     private final SummaryPanel expensesPanel;
     private final ProgressBarsPanel progressBarsPanel;
 
@@ -37,9 +39,10 @@ public class DashboardPanel extends JPanel {
                 monthPanel = new MonthSelectorPanel();
 
                 // ----- TopSummary panels -----
-                SummaryPanel balancePanel = new SummaryPanel("Balance");
+                balancePanel  = new SummaryPanel("Balance");
                 expensesPanel = new SummaryPanel("Expenses");
                 SummaryPanel savingsPanel = new SummaryPanel("Savings");
+
 
                 Helper.stylePanelBackground(monthPanel, balancePanel, expensesPanel, savingsPanel);
                 Helper.styleTopPanel(topPanel);
@@ -50,6 +53,7 @@ public class DashboardPanel extends JPanel {
             topPanel.add(savingsPanel);
 
             // ===== PROGRESS PANEL =====
+            incomeDAO    = new IncomeDAO();
             budgetDAO    = new BudgetDAO();
             expenseDAO   = new ExpenseDAO();
 
