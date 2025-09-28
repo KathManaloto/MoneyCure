@@ -1,13 +1,11 @@
 package moneycure.controller.features;
 
-import moneycure.controller.MoneyCureController;
-import moneycure.database.SavingsDAO;
-import moneycure.model.Savings;
-import moneycure.view.feature.DashboardPanel;
-import moneycure.view.feature.SavingsPanel;
-
+import moneycure.controller.*;
+import moneycure.database.*;
+import moneycure.model.*;
+import moneycure.view.feature.*;
 import javax.swing.*;
-import java.util.Objects;
+import java.util.*;
 
 public class SavingsController {
 
@@ -25,7 +23,7 @@ public class SavingsController {
 
     private void initController(){
         savingsPanel.getBtnSubmitSavings().addActionListener(e -> onSubmitButton());
-
+        savingsPanel.getBtnCancelSavings().addActionListener(e -> onCancelButton());
     }
 
     private void onSubmitButton(){
@@ -51,8 +49,6 @@ public class SavingsController {
 
             // amount
             String amountTextSavings = savingsPanel.getTxtAmountSavings().getText().trim();
-            double amountSavings = Double.parseDouble(amountTextSavings);
-
             if (amountTextSavings.isEmpty()) {
                 JOptionPane.showMessageDialog(
                     savingsPanel,
@@ -64,17 +60,10 @@ public class SavingsController {
                 return;
             }
 
-            try{
-                if(amountSavings <= 0){
-                    JOptionPane.showMessageDialog(
-                        savingsPanel,
-                        "Savings amount should be greater than zero.",
-                        "Validation Error",
-                        JOptionPane.WARNING_MESSAGE
-                    );
+            double amountSavings;
 
-                    return;
-                }
+            try{
+                amountSavings = Double.parseDouble(amountTextSavings);
 
             } catch (NumberFormatException e){
                 JOptionPane.showMessageDialog(
@@ -87,6 +76,16 @@ public class SavingsController {
                 return;
             }
 
+            if(amountSavings <= 0){
+                JOptionPane.showMessageDialog(
+                        savingsPanel,
+                        "Savings amount should be greater than zero.",
+                        "Validation Error",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                return;
+            }
             // notes
             String notes = savingsPanel.getTxtNotesSavings().getText();
 
@@ -108,4 +107,12 @@ public class SavingsController {
         }
     }
 
+    private void onCancelButton(){
+        MoneyCureController.clearFields(
+            savingsPanel.getDateSpinner(),
+            savingsPanel.getTxtAmountSavings(),
+            savingsPanel.getTxtNotesSavings(),
+            savingsPanel.getSavingsTypeCombo()
+        );
+    }
 }

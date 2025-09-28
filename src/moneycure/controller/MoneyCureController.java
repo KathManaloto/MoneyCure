@@ -18,6 +18,7 @@ public class MoneyCureController {
     private final DashboardPanel dashboardPanel;
 
     private IncomeController incomeController;
+    private SavingsController savingsController;
     private ExpenseController expenseController;
     private BudgetController budgetController;
 
@@ -72,7 +73,16 @@ public class MoneyCureController {
         }
     }
 
-    private void showSavings() { addDataPanel.showCard(AddDataPanel.SAVINGS); }
+    // ===== SHOW SAVINGS =====
+    private void showSavings() {
+        addDataPanel.showCard(AddDataPanel.SAVINGS);
+
+        if(savingsController == null) {
+            SavingsDAO savingsDAO = new SavingsDAO();
+            SavingsPanel savingsPanel = addDataPanel.getSavingsPanel();
+            savingsController = new SavingsController(savingsPanel, savingsDAO, dashboardPanel);
+        }
+    }
 
     // ===== SHOW BUDGET =====
     private void showBudget() {

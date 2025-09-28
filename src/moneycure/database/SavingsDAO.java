@@ -2,6 +2,8 @@ package moneycure.database;
 
 import moneycure.model.*;
 import java.sql.*;
+import java.time.Month;
+import java.time.Year;
 import java.util.logging.*;
 
 public class SavingsDAO {
@@ -29,5 +31,22 @@ public class SavingsDAO {
             LOGGER.log(Level.SEVERE, "Error adding savings", e);
             return false;
         }
+    }
+
+    public double getMonthlySavings(Month month, int year){
+        String sql = "SELECT SUM(amount) FROM savings" +
+                        "WHERE strftime('%m',date) = ?" +
+                        "AND strftime('%Y', date) = ?";
+
+        double totalSavings = 0.0;
+
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+
+        }catch (SQLException e){
+            e.getLocalizedMessage();
+        }
+
+        return totalSavings;
     }
 }

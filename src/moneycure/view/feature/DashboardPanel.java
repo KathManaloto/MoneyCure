@@ -13,6 +13,7 @@ public class DashboardPanel extends JPanel {
 
     // ===== FIELDS =====
     private final IncomeDAO incomeDAO;
+    private final SavingsDAO savingsDAO;
     private final BudgetDAO budgetDAO;
     private final ExpenseDAO expenseDAO;
 
@@ -21,6 +22,7 @@ public class DashboardPanel extends JPanel {
 
     private final SummaryPanel balancePanel;
     private final SummaryPanel expensesPanel;
+    private final SummaryPanel savingsPanel;
     private final ProgressBarsPanel progressBarsPanel;
 
     private Month currentMonth;
@@ -41,7 +43,7 @@ public class DashboardPanel extends JPanel {
                 // ----- TopSummary panels -----
                 balancePanel  = new SummaryPanel("Balance");
                 expensesPanel = new SummaryPanel("Expenses");
-                SummaryPanel savingsPanel = new SummaryPanel("Savings");
+                savingsPanel  = new SummaryPanel("Savings");
 
                 Helper.stylePanelBackground(monthPanel, balancePanel, expensesPanel, savingsPanel);
                 Helper.styleTopPanel(topPanel);
@@ -53,6 +55,7 @@ public class DashboardPanel extends JPanel {
 
             // ===== PROGRESS PANEL =====
             incomeDAO    = new IncomeDAO();
+            savingsDAO   = new SavingsDAO();
             budgetDAO    = new BudgetDAO();
             expenseDAO   = new ExpenseDAO();
 
