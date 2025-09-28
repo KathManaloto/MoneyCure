@@ -39,8 +39,10 @@ public class IncomeController {
                     JOptionPane.showMessageDialog(
                         incomePanel,
                         "Date is required.",
-                        "Validation error",
-                        JOptionPane.WARNING_MESSAGE);
+                        "Validation Error",
+                        JOptionPane.WARNING_MESSAGE
+                    );
+
                     return;
                 }
 
@@ -56,7 +58,8 @@ public class IncomeController {
                         incomePanel,
                         "Please enter an amount.",
                         "Validation Error",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE
+                    );
 
                     return;
                 }
@@ -69,7 +72,8 @@ public class IncomeController {
                             incomePanel,
                             "Amount must be greater than zero.",
                             "Validation Error",
-                            JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.WARNING_MESSAGE
+                        );
 
                         return;
                     }
@@ -79,7 +83,8 @@ public class IncomeController {
                         incomePanel,
                         "Amount must be a valid number.",
                         "Validation Error",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE
+                    );
 
                     return;
                 }

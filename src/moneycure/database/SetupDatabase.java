@@ -10,6 +10,24 @@ public class SetupDatabase {
     // CREATE TABLES
     public static void createTables() {
 
+        // INCOME TABLE
+        String sqlIncome =
+            "CREATE TABLE IF NOT EXISTS income ("     +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "  +
+            "date TEXT NOT NULL, "                    +
+            "incomeSource TEXT NOT NULL, "            +
+            "amount REAL NOT NULL, "                  +
+            "notes TEXT)";
+
+        // SAVINGS TABLE
+        String sqlSavings =
+            "CREATE TABLE IF NOT EXISTS savings ("    +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "  +
+            "date TEXT NOT NULL, "                    +
+            "savingsType TEXT NOT NULL, "             +
+            "amount real NOT NULL, "                  +
+            "notes TEXT)";
+
         // EXPENSES TABLE
         String sqlExpenses =
             "CREATE TABLE IF NOT EXISTS expenses ("  +
@@ -28,25 +46,18 @@ public class SetupDatabase {
             "amount REAL NOT NULL, "                 +
             "notes TEXT)";
 
-        String sqlIncome =
-                "CREATE TABLE IF NOT EXISTS income ("     +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, "  +
-                "date TEXT NOT NULL, "                    +
-                "incomeSource TEXT NOT NULL, "            +
-                "amount REAL NOT NULL, "                  +
-                "notes TEXT)";
-
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement()) {
 
             System.out.println("Using DB file at: " +
                     new java.io.File("moneyCure.db").getAbsolutePath());
 
+            stmt.execute(sqlIncome);
+            stmt.execute(sqlSavings);
             stmt.execute(sqlExpenses);
             stmt.execute(sqlBudget);
-            stmt.execute(sqlIncome);
 
-            System.out.println("Checked: 'expenses', 'budget' and 'income' tables are ready!");
+            System.out.println("Checked:  'income' 'savings, 'expenses', and 'budget' tables are ready!");
 
         } catch (SQLException e) {
             System.err.println("Error creating tables: " + e.getMessage());

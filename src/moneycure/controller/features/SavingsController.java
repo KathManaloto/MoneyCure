@@ -1,0 +1,111 @@
+package moneycure.controller.features;
+
+import moneycure.controller.MoneyCureController;
+import moneycure.database.SavingsDAO;
+import moneycure.model.Savings;
+import moneycure.view.feature.DashboardPanel;
+import moneycure.view.feature.SavingsPanel;
+
+import javax.swing.*;
+import java.util.Objects;
+
+public class SavingsController {
+
+    private final SavingsPanel savingsPanel;
+    private final SavingsDAO savingsDAO;
+    private final DashboardPanel dashboardPanel;
+
+    public SavingsController(SavingsPanel savingsPanel, SavingsDAO savingsDAO, DashboardPanel dashboardPanel){
+        this.savingsPanel = savingsPanel;
+        this.savingsDAO = savingsDAO;
+        this.dashboardPanel = dashboardPanel;
+
+        initController();
+    }
+
+    private void initController(){
+        savingsPanel.getBtnSubmitSavings().addActionListener(e -> onSubmitButton());
+
+    }
+
+    private void onSubmitButton(){
+
+        try {
+
+            // date
+            String date = MoneyCureController.getSelectedDate(savingsPanel.getDateSpinner());
+            if (date.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    savingsPanel,
+                    "Date is required.",
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE
+
+                );
+
+                return;
+            }
+
+            // savings type
+            String savingsTypeCombo = Objects.requireNonNull(savingsPanel.getSavingsTypeCombo().getSelectedItem()).toString();
+
+            // amount
+            String amountTextSavings = savingsPanel.getTxtAmountSavings().getText().trim();
+            double amountSavings = Double.parseDouble(amountTextSavings);
+
+            if (amountTextSavings.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    savingsPanel,
+                    "Please enter an amount.",
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE
+                );
+
+                return;
+            }
+
+            try{
+                if(amountSavings <= 0){
+                    JOptionPane.showMessageDialog(
+                        savingsPanel,
+                        "Savings amount should be greater than zero.",
+                        "Validation Error",
+                        JOptionPane.WARNING_MESSAGE
+                    );
+
+                    return;
+                }
+
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(
+                    savingsPanel,
+                    "Amount must be a valid number.",
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE
+                );
+
+                return;
+            }
+
+            // notes
+            String notes = savingsPanel.getTxtNotesSavings().getText();
+
+            Savings savings = new Savings(date, savingsTypeCombo, amountSavings, notes);
+            boolean success = savingsDAO.addSavings(savings);
+
+            if(success){
+                JOptionPane.showMessageDialog(savingsPanel,"Savings added successfully");
+                dashboardPanel.refreshData();
+            }
+
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(
+                savingsPanel,
+                "Error adding savings: " + e.getLocalizedMessage(),
+                "Error",
+                JOptionPane.WARNING_MESSAGE
+            );
+        }
+    }
+
+}
