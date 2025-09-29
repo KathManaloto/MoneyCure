@@ -3,7 +3,6 @@ package moneycure.database;
 import moneycure.model.*;
 import java.sql.*;
 import java.time.Month;
-import java.time.Year;
 import java.util.logging.*;
 
 public class SavingsDAO {
@@ -34,17 +33,25 @@ public class SavingsDAO {
     }
 
     public double getMonthlySavings(Month month, int year){
-        String sql = "SELECT SUM(amount) FROM savings" +
-                        "WHERE strftime('%m',date) = ?" +
-                        "AND strftime('%Y', date) = ?";
+        String sql = "SELECT SUM(amount) FROM savings " +
+                        "WHERE strftime('%m',date) = ? " +
+                        "AND strftime('%Y', date) = ? ";
 
         double totalSavings = 0.0;
 
         try(Connection conn = DBConnection.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(sql)){
 
+            preparedStatement.setString(1, String.format("%02d", month.getValue()));
+            preparedStatement.setString(2, String.valueOf(year));
+
+            try(ResultSet rs = preparedStatement.executeQuery()){
+                if(rs.next()){
+                    totalSavings = rs.getDouble(1);
+                }
+            }
         }catch (SQLException e){
-            e.getLocalizedMessage();
+            LOGGER.log(Level.SEVERE,"Error fetching total savings",e);
         }
 
         return totalSavings;

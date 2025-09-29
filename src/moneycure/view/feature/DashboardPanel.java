@@ -82,22 +82,31 @@ public class DashboardPanel extends JPanel {
         expenses = expenseDAO.getMonthlyExpenses(currentMonth,currentYear);
 
         progressBarsPanel.updateData(budgets, expenses);
+        updateSummary(expenses);
     }
 
     // ===== UPDATE SUMMARY PANEL ====
     private void updateSummary(Map<String, Double> expenses){
-        double totalExpenses = expenses.values().stream().mapToDouble(Double::doubleValue).sum();
-        double totalIncome = incomeDAO.getMonthlyIncomeTotal(currentMonth, currentYear);
-        double balance = totalIncome - totalExpenses;
 
+        double totalIncome = incomeDAO.getMonthlyIncomeTotal(currentMonth, currentYear);
+
+        double totalExpenses = expenses.values().stream().mapToDouble(Double::doubleValue).sum();
         expensesPanel.setValue(totalExpenses);
         expensesPanel.setToolTipText("Total monthly expenses");
 
+        double savings = savingsDAO.getMonthlySavings(currentMonth,currentYear);
+        savingsPanel.setValue(savings);
+        savingsPanel.setToolTipText("Total Monthly Savings");
+
+        double balance = totalIncome - totalExpenses;
         balancePanel.setValue(balance);
         balancePanel.setToolTipText("Total Monthly Income - Total Monthly Expenses");
     }
 
     // ===== GETTERS & SETTERS =====
     public MonthSelectorPanel getMonthPanel() { return monthPanel;}
-    public void setCurrentMonth(Month month) { this.currentMonth = month; }
+    public void setCurrentMonth(Month month) {
+        this.currentMonth = month;
+        refreshData();
+    }
 }

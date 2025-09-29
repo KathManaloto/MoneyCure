@@ -90,12 +90,17 @@ public class SavingsController {
             String notes = savingsPanel.getTxtNotesSavings().getText();
 
             Savings savings = new Savings(date, savingsTypeCombo, amountSavings, notes);
+
             boolean success = savingsDAO.addSavings(savings);
 
             if(success){
                 JOptionPane.showMessageDialog(savingsPanel,"Savings added successfully");
+                MoneyCureController.clearFields(savingsPanel.getDateSpinner(),savingsPanel.getTxtAmountSavings(),savingsPanel.getTxtNotesSavings(),savingsPanel.getSavingsTypeCombo());
                 dashboardPanel.refreshData();
-            }
+
+            } else {
+            JOptionPane.showMessageDialog(savingsPanel, "Failed to add savings.");
+        }
 
         } catch (Exception e){
             JOptionPane.showMessageDialog(
