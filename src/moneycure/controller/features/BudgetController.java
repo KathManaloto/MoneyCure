@@ -5,7 +5,6 @@ import moneycure.controller.*;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
-
 import javax.swing.*;
 import java.util.*;
 import java.util.logging.*;

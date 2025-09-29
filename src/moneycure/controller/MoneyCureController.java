@@ -6,7 +6,6 @@ import moneycure.database.*;
 import moneycure.view.*;
 import moneycure.view.category.*;
 import moneycure.view.feature.*;
-
 import javax.swing.*;
 import java.util.*;
 
@@ -78,9 +77,9 @@ public class MoneyCureController {
         addDataPanel.showCard(AddDataPanel.SAVINGS);
 
         if(savingsController == null) {
-            SavingsDAO savingsDAO = new SavingsDAO();
+            SavingsDAO savingsDAO     = new SavingsDAO();
             SavingsPanel savingsPanel = addDataPanel.getSavingsPanel();
-            savingsController = new SavingsController(savingsPanel, savingsDAO, dashboardPanel);
+            savingsController         = new SavingsController(savingsPanel, savingsDAO, dashboardPanel);
         }
     }
 

@@ -74,10 +74,10 @@ public class ExpenseController {
 
                     if (amount <= 0) {
                         JOptionPane.showMessageDialog(
-                                expensePanel,
-                                "Amount must be greater than zero.",
-                                "Validation Error",
-                                JOptionPane.WARNING_MESSAGE);
+                            expensePanel,
+                            "Amount must be greater than zero.",
+                            "Validation Error",
+                            JOptionPane.WARNING_MESSAGE);
 
                         return;
                     }
@@ -92,7 +92,7 @@ public class ExpenseController {
                 }
 
             // NOTES
-            String notes = expensePanel.getTxtNotesExpenses().getText();
+            String notes    = expensePanel.getTxtNotesExpenses().getText();
 
             // CREATE EXPENSE OBJECT
             Expense expense = new Expense(date, category, amount, notes);

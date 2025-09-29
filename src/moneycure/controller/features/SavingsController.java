@@ -14,8 +14,8 @@ public class SavingsController {
     private final DashboardPanel dashboardPanel;
 
     public SavingsController(SavingsPanel savingsPanel, SavingsDAO savingsDAO, DashboardPanel dashboardPanel){
-        this.savingsPanel = savingsPanel;
-        this.savingsDAO = savingsDAO;
+        this.savingsPanel   = savingsPanel;
+        this.savingsDAO     = savingsDAO;
         this.dashboardPanel = dashboardPanel;
 
         initController();
@@ -78,16 +78,16 @@ public class SavingsController {
 
             if(amountSavings <= 0){
                 JOptionPane.showMessageDialog(
-                        savingsPanel,
-                        "Savings amount should be greater than zero.",
-                        "Validation Error",
-                        JOptionPane.WARNING_MESSAGE
+                    savingsPanel,
+                    "Savings amount should be greater than zero.",
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE
                 );
 
                 return;
             }
             // notes
-            String notes = savingsPanel.getTxtNotesSavings().getText();
+            String notes    = savingsPanel.getTxtNotesSavings().getText();
 
             Savings savings = new Savings(date, savingsTypeCombo, amountSavings, notes);
 

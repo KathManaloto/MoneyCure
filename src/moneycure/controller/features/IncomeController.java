@@ -4,19 +4,20 @@ import moneycure.controller.*;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
-
 import javax.swing.*;
 import java.util.*;
 import java.util.logging.*;
 
 public class IncomeController {
 
+    // ===== FIELDS =====
     private final IncomeDAO incomeDAO;
     private final IncomePanel incomePanel;
     private final DashboardPanel dashboardPanel;
 
     private static final Logger LOGGER = Logger.getLogger(IncomeController.class.getName());
 
+    // ===== CONSTRUCTOR =====
     public IncomeController(IncomePanel incomePanel, IncomeDAO incomeDAO, DashboardPanel dashboardPanel){
         this.incomePanel    = incomePanel;
         this.incomeDAO      = incomeDAO;
@@ -25,11 +26,13 @@ public class IncomeController {
         initController();
     }
 
+    // ====== INIT CONTROLLER =====
     private void initController(){
         incomePanel.getBtnSubmitIncome().addActionListener(e -> onSubmitButton());
         incomePanel.getBtnCancelIncome().addActionListener(e -> onCancelButton());
     }
 
+    // ===== ON SUBMIT INCOME =====
     private void onSubmitButton(){
 
         try{
@@ -111,6 +114,7 @@ public class IncomeController {
         }
     }
 
+    // ===== ON CANCEL BUTTON =====
     private void onCancelButton(){
         MoneyCureController.clearFields(
             incomePanel.getDateSpinner(),
