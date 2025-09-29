@@ -15,6 +15,7 @@ public class MainFrame extends JFrame {
 
     private DashboardPanel dashboard;
     private AddDataPanel addData;
+    private ManageFinancesPanel manageFinances;
 
     public static final String DASHBOARD = "Dashboard";
     public static final String ADD_DATA  = "Add Data";
@@ -67,14 +68,14 @@ public class MainFrame extends JFrame {
         cardPanel  = new JPanel(cardLayout);
 
         // --- Features ---
-        dashboard = new DashboardPanel();
-        addData   = new AddDataPanel();
-        ManageFinancesPanel manage = new ManageFinancesPanel();
+        dashboard      = new DashboardPanel();
+        addData        = new AddDataPanel();
+        manageFinances = new ManageFinancesPanel();
         FinancialAnalysisPanel analysis = new FinancialAnalysisPanel();
 
         cardPanel.add(dashboard,DASHBOARD);
         cardPanel.add(addData,ADD_DATA);
-        cardPanel.add(manage,MANAGE);
+        cardPanel.add(manageFinances,MANAGE);
         cardPanel.add(analysis,ANALYSIS);
 
         mainPanel.add(sidebar,BorderLayout.WEST);
@@ -106,6 +107,7 @@ public class MainFrame extends JFrame {
     public JButton getBtnManage(){ return btnManage; }
     public JButton getBtnAnalysis(){ return btnAnalysis;}
 
-    public AddDataPanel getAddData(){ return addData; }
     public DashboardPanel getDashboardPanel() { return dashboard; }
+    public AddDataPanel getAddData(){ return addData; }
+    public ManageFinancesPanel getManageFinancesPanel(){ return manageFinances; }
 }

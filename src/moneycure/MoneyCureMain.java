@@ -54,7 +54,7 @@ public class MoneyCureMain {
 
                         // Launch main application
                         MainFrame mainFrame = new MainFrame();
-                        new MoneyCureController(mainFrame, mainFrame.getAddData(), mainFrame.getDashboardPanel());
+                        new MoneyCureController(mainFrame, mainFrame.getAddData(), mainFrame.getDashboardPanel(), mainFrame.getManageFinancesPanel());
                         mainFrame.setVisible(true);
 
                     } catch (Exception e){

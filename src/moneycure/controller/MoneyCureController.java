@@ -15,6 +15,7 @@ public class MoneyCureController {
     private final MainFrame mainFrame;
     private final AddDataPanel addDataPanel;
     private final DashboardPanel dashboardPanel;
+    private final ManageFinancesPanel manageFinances;
 
     private IncomeController incomeController;
     private SavingsController savingsController;
@@ -22,10 +23,11 @@ public class MoneyCureController {
     private BudgetController budgetController;
 
     // ===== CONSTRUCTORS =====
-    public MoneyCureController(MainFrame mainFrame, AddDataPanel addDataPanel,DashboardPanel dashboardPanel) {
-        this.mainFrame = mainFrame;
-        this.addDataPanel = addDataPanel;
+    public MoneyCureController(MainFrame mainFrame, AddDataPanel addDataPanel, DashboardPanel dashboardPanel, ManageFinancesPanel manageFinances) {
+        this.mainFrame      = mainFrame;
+        this.addDataPanel   = addDataPanel;
         this.dashboardPanel = dashboardPanel;
+        this.manageFinances = manageFinances;
         initController();
     }
 
