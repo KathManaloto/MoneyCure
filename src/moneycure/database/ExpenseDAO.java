@@ -1,4 +1,3 @@
-//Handles all database access for expenses -
 //Takes Expense objects and turns them into SQL rows (and vice versa).
 package moneycure.database;
 

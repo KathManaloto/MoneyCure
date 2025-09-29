@@ -2,13 +2,15 @@ package moneycure.database;
 
 import moneycure.model.*;
 import java.sql.*;
-import java.time.Month;
+import java.time.*;
 import java.util.logging.*;
 
 public class SavingsDAO {
 
+    // ===== FIELDS =====
     private final Logger LOGGER = Logger.getLogger(SavingsDAO.class.getName());
 
+    // ===== ADD SAVINGS =====
     public boolean addSavings(Savings savings) {
         String sql = "INSERT INTO savings (date, savingsType, amount, notes) VALUES (?,?,?,?)";
 
@@ -32,10 +34,11 @@ public class SavingsDAO {
         }
     }
 
+    // ===== GET MONTHLY SAVINGS =====
     public double getMonthlySavings(Month month, int year){
         String sql = "SELECT SUM(amount) FROM savings " +
-                        "WHERE strftime('%m',date) = ? " +
-                        "AND strftime('%Y', date) = ? ";
+                     "WHERE strftime('%m',date) = ? " +
+                     "AND strftime('%Y', date) = ? ";
 
         double totalSavings = 0.0;
 
@@ -50,7 +53,8 @@ public class SavingsDAO {
                     totalSavings = rs.getDouble(1);
                 }
             }
-        }catch (SQLException e){
+
+        } catch (SQLException e){
             LOGGER.log(Level.SEVERE,"Error fetching total savings",e);
         }
 

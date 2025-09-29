@@ -7,8 +7,10 @@ import java.util.logging.*;
 
 public class IncomeDAO {
 
+    // ===== FIELDS =====
     private static final Logger LOGGER = Logger.getLogger(IncomeDAO.class.getName());
 
+    // ===== ADD INCOME =====
     public boolean addIncome(Income income){
         String sql = "INSERT INTO income (\"date\", incomeSource, amount, notes) VALUES (?,?,?,?)";
 
@@ -31,6 +33,7 @@ public class IncomeDAO {
         }
     }
 
+    // ===== GET MONTHLY INCOME =====
     public double getMonthlyIncomeTotal(Month month, int year){
 
         String sql = "SELECT SUM(amount) FROM income " +

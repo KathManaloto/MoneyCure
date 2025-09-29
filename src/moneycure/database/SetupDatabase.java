@@ -5,9 +5,10 @@ import java.util.logging.*;
 
 public class SetupDatabase {
 
+    // ===== FIELDS =====
     private static final Logger LOGGER = Logger.getLogger(SetupDatabase.class.getName());
 
-    // CREATE TABLES
+    // ===== CREATE TABLES =====
     public static void createTables() {
 
         // INCOME TABLE
@@ -49,8 +50,7 @@ public class SetupDatabase {
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement()) {
 
-            System.out.println("Using DB file at: " +
-                    new java.io.File("moneyCure.db").getAbsolutePath());
+            System.out.println("Using DB file at: " + new java.io.File("moneyCure.db").getAbsolutePath());
 
             stmt.execute(sqlIncome);
             stmt.execute(sqlSavings);

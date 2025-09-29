@@ -1,9 +1,7 @@
-//Handles all database access for budget -
 //Takes budget objects and turns them into SQL rows (and vice versa).
 package moneycure.database;
 
 import moneycure.model.*;
-
 import java.sql.*;
 import java.time.*;
 import java.util.*;
