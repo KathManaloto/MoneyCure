@@ -11,10 +11,10 @@ public class Budget {
 
     // ===== CONSTRUCTOR =====
     public Budget(String date, String category, double amount, String notes){
-        this.date = date;
+        this.date     = date;
         this.category = category;
-        this.amount = amount;
-        this.notes = notes;
+        this.amount   = amount;
+        this.notes    = notes;
     }
 
     // ===== GETTERS =====

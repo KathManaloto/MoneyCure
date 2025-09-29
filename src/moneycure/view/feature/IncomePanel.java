@@ -29,10 +29,10 @@ public class IncomePanel extends JPanel {
 
             // date
             JLabel lblDateIncome = new JLabel("Date (yyyy-MM-dd): ");
-            dateSpinner = new JSpinner(new SpinnerDateModel());
-            JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd");
-            dateSpinner.setEditor(editor);
-            dateSpinner.setValue(new Date());
+                dateSpinner = new JSpinner(new SpinnerDateModel());
+                JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd");
+                dateSpinner.setEditor(editor);
+                dateSpinner.setValue(new Date());
 
             formPanel.add(lblDateIncome,Helper.getGbc(0,0,GridBagConstraints.HORIZONTAL,GridBagConstraints.WEST,0));
             formPanel.add(dateSpinner,Helper.getGbc(1,0,GridBagConstraints.HORIZONTAL,GridBagConstraints.WEST,0));

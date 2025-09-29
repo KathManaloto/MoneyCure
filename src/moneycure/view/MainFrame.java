@@ -3,7 +3,6 @@ package moneycure.view;
 
 import javax.swing.*;
 import java.awt.*;
-
 import moneycure.view.category.*;
 import moneycure.view.feature.*;
 
@@ -93,7 +92,7 @@ public class MainFrame extends JFrame {
             button.setBackground(new Color(204, 204, 204));
             button.setFocusable(false);
 
-            return button;
+        return button;
     }
 
     // ===== HELPER - SHOW CARD =====

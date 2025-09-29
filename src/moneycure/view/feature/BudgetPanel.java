@@ -3,7 +3,6 @@ package moneycure.view.feature;
 
 import moneycure.model.*;
 import moneycure.view.*;
-
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
@@ -33,10 +32,10 @@ public class BudgetPanel extends JPanel {
 
                 // date
                 JLabel lblDateBudget = new JLabel("Date (yyyy-MM-dd): ");
-                dateSpinner = new JSpinner(new SpinnerDateModel());
-                JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd");
-                dateSpinner.setEditor(editor);
-                dateSpinner.setValue(new Date());
+                    dateSpinner = new JSpinner(new SpinnerDateModel());
+                    JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd");
+                    dateSpinner.setEditor(editor);
+                    dateSpinner.setValue(new Date());
 
                 formPanel.add(lblDateBudget, Helper.getGbc(0,0, GridBagConstraints.HORIZONTAL,GridBagConstraints.WEST,0 ));
                 formPanel.add(dateSpinner, Helper.getGbc(1,0, GridBagConstraints.HORIZONTAL,GridBagConstraints.WEST,0 ));
@@ -109,7 +108,8 @@ public class BudgetPanel extends JPanel {
 
     // Add expense to RecentExpensesTable
     public void addBudgetToTable(String date, String category, double amount, String notes){
-        budgetTableModel.addRow(new Object[]{date, category, String.format("₱%.2f",amount),
+        budgetTableModel.addRow(new Object[]{
+                date, category, String.format("₱%.2f",amount),
                 notes == null || notes.isEmpty() ? "-" : notes});
     }
 
@@ -117,11 +117,6 @@ public class BudgetPanel extends JPanel {
     public void clearBudgetTable(){ budgetTableModel.setRowCount(0); }
 
     // ===== GETTERS =====
-    public String getSelectedDate(){
-        Date date = (Date) dateSpinner.getValue();
-        return new java.text.SimpleDateFormat("yyyy-MM-dd").format(date);
-    }
-
     public JSpinner getDateSpinner(){ return dateSpinner; }
     public JComboBox<ExpenseBudgetCategory> getBudgetCategoryCombo(){ return budgetCategoryCombo; }
     public JButton getBtnAddBudget(){ return btnAddBudget; }

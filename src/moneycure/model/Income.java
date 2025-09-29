@@ -10,10 +10,10 @@ public class Income {
 
     // ===== CONSTRUCTOR =====
     public Income(String date, String incomeSource, double amount, String notes){
-        this.date = date;
+        this.date        = date;
         this.incomeCombo = incomeSource;
-        this.amount = amount;
-        this.notes = notes;
+        this.amount      = amount;
+        this.notes       = notes;
     }
 
     // ===== GETTERS =====

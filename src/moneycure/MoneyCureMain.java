@@ -3,7 +3,6 @@ package moneycure;
 import moneycure.controller.*;
 import moneycure.view.*;
 import moneycure.database.*;
-
 import javax.swing.*;
 import java.util.logging.*;
 

@@ -3,7 +3,6 @@ package moneycure.view.feature;
 
 import moneycure.model.*;
 import moneycure.view.*;
-
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
@@ -40,8 +39,8 @@ public class ExpensePanel extends JPanel {
                     dateSpinner.setEditor(editor);
                     dateSpinner.setValue(new Date());
 
-                    formPanel.add(lblDateExpenses, Helper.getGbc(0,0, GridBagConstraints.HORIZONTAL,GridBagConstraints.WEST,0 ));
-                    formPanel.add(dateSpinner, Helper.getGbc(1,0, GridBagConstraints.HORIZONTAL,GridBagConstraints.WEST,0 ));
+                formPanel.add(lblDateExpenses, Helper.getGbc(0,0, GridBagConstraints.HORIZONTAL,GridBagConstraints.WEST,0 ));
+                formPanel.add(dateSpinner, Helper.getGbc(1,0, GridBagConstraints.HORIZONTAL,GridBagConstraints.WEST,0 ));
 
                 // category
                 JLabel lblCategoryExpenses = new JLabel("Category: ");
@@ -113,7 +112,8 @@ public class ExpensePanel extends JPanel {
 
     // Add expense to RecentExpensesTable
     public void addExpenseToTable(String date, String category, double amount, String notes){
-        expensesTableModel.addRow(new Object[]{date, category, String.format("₱%.2f",amount),
+        expensesTableModel.addRow(new Object[]{
+                date, category, String.format("₱%.2f",amount),
                 notes == null || notes.isEmpty() ? "-" : notes});
     }
 
@@ -121,11 +121,6 @@ public class ExpensePanel extends JPanel {
     public void clearExpenseTable(){ expensesTableModel.setRowCount(0); }
 
     // ===== GETTERS =====
-    public String getSelectedDate(){
-        Date date = (Date) dateSpinner.getValue();
-        return new java.text.SimpleDateFormat("yyyy-MM-dd").format(date);
-    }
-
     public JSpinner getDateSpinner(){ return dateSpinner; }
     public JComboBox<ExpenseBudgetCategory> getExpensesCategoryCombo(){ return expensesCategoryCombo; }
     public JButton getBtnAddExpense(){ return btnAddExpense; }

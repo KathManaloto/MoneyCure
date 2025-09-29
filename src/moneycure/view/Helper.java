@@ -117,7 +117,7 @@ public class Helper {
             gbc.fill = fill;
             gbc.weightx = weight;
 
-            return gbc;
+        return gbc;
     }
 
     // Style ProgressbarColor - Dashboard Panel
@@ -142,6 +142,7 @@ public class Helper {
         table.setRowHeight(25);
         table.setFillsViewportHeight(true);
         table.getTableHeader().setReorderingAllowed(false);
+
         table.getColumnModel().getColumn(0).setPreferredWidth(100); // Date
         table.getColumnModel().getColumn(1).setPreferredWidth(200); // Category
         table.getColumnModel().getColumn(2).setPreferredWidth(130); // Amount

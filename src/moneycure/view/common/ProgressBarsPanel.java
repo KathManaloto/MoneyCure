@@ -1,7 +1,6 @@
 package moneycure.view.common;
 
-import moneycure.view.Helper;
-
+import moneycure.view.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -65,7 +64,6 @@ public class ProgressBarsPanel extends JPanel {
             progressBar.setFont(new Font("Monospaced", Font.PLAIN, 13));
             progressBar.setBackground(new Color(236, 236, 236));
             progressBar.setBorder(BorderFactory.createLineBorder(new Color(138, 138, 138)));
-
             progressBar.setUI(new javax.swing.plaf.basic.BasicProgressBarUI() {
                 protected Color getSelectionForeground() { return Color.BLACK; }
                 protected Color getSelectionBackground() { return Color.BLACK; }

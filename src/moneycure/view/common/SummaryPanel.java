@@ -1,6 +1,6 @@
 package moneycure.view.common;
 
-import moneycure.view.Helper;
+import moneycure.view.*;
 import javax.swing.*;
 import java.awt.*;
 

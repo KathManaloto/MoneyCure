@@ -2,7 +2,6 @@ package moneycure.view.category;
 
 import moneycure.view.*;
 import moneycure.view.feature.*;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -56,7 +55,7 @@ public class AddDataPanel extends JPanel {
             cardLayout   = new CardLayout();
             contentPanel = new JPanel(cardLayout);
 
-                incomePanel   = new IncomePanel();
+                incomePanel  = new IncomePanel();
                 savingsPanel = new SavingsPanel();
                 budgetPanel  = new BudgetPanel();
                 expensePanel = new ExpensePanel();

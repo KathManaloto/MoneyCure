@@ -8,7 +8,7 @@ public class ExpenseBudgetCategory {
 
     // ===== CONSTRUCTOR =====
     public ExpenseBudgetCategory(String name, String displayName){
-        this.name = name;
+        this.name        = name;
         this.displayName = displayName;
     }
 

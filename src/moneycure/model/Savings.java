@@ -10,10 +10,10 @@ public class Savings {
 
     // ===== CONSTRUCTOR =====
     public Savings(String date, String savingsType, double savingsAmount, String savingsNotes){
-        this.date = date;
-        this.savingsType = savingsType;
+        this.date          = date;
+        this.savingsType   = savingsType;
         this.savingsAmount = savingsAmount;
-        this.savingsNotes = savingsNotes;
+        this.savingsNotes  = savingsNotes;
     }
 
     // ===== GETTERS =====

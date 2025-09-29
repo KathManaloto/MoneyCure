@@ -40,7 +40,7 @@ public class ExpenseController {
 
         try {
             // DATE
-            String date = expensePanel.getSelectedDate();
+            String date = MoneyCureController.getSelectedDate(expensePanel.getDateSpinner());
 
                 if (date.isEmpty()) {
                     JOptionPane.showMessageDialog(

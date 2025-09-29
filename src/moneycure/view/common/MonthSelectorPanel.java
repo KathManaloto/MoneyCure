@@ -1,7 +1,6 @@
 package moneycure.view.common;
 
 import moneycure.view.Helper;
-
 import javax.swing.*;
 import java.awt.*;
 import java.time.*;
@@ -23,7 +22,7 @@ public class MonthSelectorPanel extends JPanel {
             }
 
             // SELECT CURRENT MONTH
-            Month currentMonth = LocalDate.now().getMonth();
+            Month currentMonth      = LocalDate.now().getMonth();
             String currentFormatted = currentMonth.name().charAt(0) + currentMonth.name().substring(1).toLowerCase();
 
             // STYLE MONTH COMBO BOX

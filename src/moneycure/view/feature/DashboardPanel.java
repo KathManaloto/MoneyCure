@@ -3,7 +3,6 @@ package moneycure.view.feature;
 import moneycure.database.*;
 import moneycure.view.*;
 import moneycure.view.common.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.time.*;
