@@ -1,4 +1,4 @@
-package moneycure.controller.features;
+package moneycure.controller.addDataFeatures;
 
 import moneycure.controller.*;
 import moneycure.database.*;

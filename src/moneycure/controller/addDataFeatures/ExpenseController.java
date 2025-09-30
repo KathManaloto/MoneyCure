@@ -1,5 +1,5 @@
 //Reads input from the View, builds a Model, calls DAO.
-package moneycure.controller.features;
+package moneycure.controller.addDataFeatures;
 
 import moneycure.controller.MoneyCureController;
 import moneycure.database.*;

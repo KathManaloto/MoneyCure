@@ -173,4 +173,18 @@ public class Helper {
             }
         });
     }
+
+    public static <T> void styleFilterDropdown(JComboBox<T> combo) {
+        combo.setFont(new Font("Verdana", Font.PLAIN, 14));
+        combo.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+
+                JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                return label;
+            }
+        });
+    }
 }

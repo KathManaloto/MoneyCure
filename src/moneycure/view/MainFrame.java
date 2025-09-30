@@ -3,7 +3,7 @@ package moneycure.view;
 
 import javax.swing.*;
 import java.awt.*;
-import moneycure.view.category.*;
+import moneycure.view.sidebar.*;
 import moneycure.view.feature.*;
 
 public class MainFrame extends JFrame {

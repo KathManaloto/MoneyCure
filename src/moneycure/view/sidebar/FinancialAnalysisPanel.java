@@ -1,4 +1,4 @@
-package moneycure.view.category;
+package moneycure.view.sidebar;
 
 import javax.swing.*;
 

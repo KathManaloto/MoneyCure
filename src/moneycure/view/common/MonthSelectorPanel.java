@@ -31,18 +31,8 @@ public class MonthSelectorPanel extends JPanel {
             monthComboBox.setBackground(new Color(182, 182, 182));
             monthComboBox.setForeground(new Color(59, 59, 59));
             monthComboBox.setFocusable(false);
-            monthComboBox.setRenderer(new DefaultListCellRenderer() {
-                @Override
-                public Component getListCellRendererComponent(
-                        JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 
-                    JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                    label.setHorizontalAlignment(SwingConstants.CENTER);
-
-                    return label;
-                }
-            });
-
+            Helper.styleFilterDropdown(monthComboBox);
             Helper.stylePanelBorder(this, "Select Month");
 
         // ADD MONTH COMBO BOX TO PANEL

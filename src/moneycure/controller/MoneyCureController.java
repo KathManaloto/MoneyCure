@@ -1,10 +1,10 @@
 //Instantiates sub-controllers like ExpenseController and passes them the right Panel + DAO.
 package moneycure.controller;
 
-import moneycure.controller.features.*;
+import moneycure.controller.addDataFeatures.*;
 import moneycure.database.*;
 import moneycure.view.*;
-import moneycure.view.category.*;
+import moneycure.view.sidebar.*;
 import moneycure.view.feature.*;
 import javax.swing.*;
 import java.util.*;
@@ -34,36 +34,39 @@ public class MoneyCureController {
     // ===== ATTACH LISTENERS =====
     private void initController() {
 
-        // ----- SIDE BARS -----
+        // ===== SIDEBAR BUTTONS CONTROLLERS =====
         mainFrame.getBtnDashboard().addActionListener(e -> showDashboard());
         mainFrame.getBtnAddData().addActionListener(e -> showAddData());
         mainFrame.getBtnManage().addActionListener(e -> showManage());
         mainFrame.getBtnAnalysis().addActionListener(e -> showAnalysis());
 
-        // ----- ADD_DATA FEATURES -----
-        addDataPanel.getBtnIncome().addActionListener(e -> showIncome());
-        addDataPanel.getBtnSavings().addActionListener(e -> showSavings());
-        addDataPanel.getBtnBudget().addActionListener(e -> showBudget());
-        addDataPanel.getBtnExpenses().addActionListener(e -> showExpenses());
+            // ===== DASHBOARD CONTROLLER =====
+            dashboardPanel.getMonthPanel().getMonthComboBox().addActionListener(e -> {
+                String selected = (String) dashboardPanel.getMonthPanel().getMonthComboBox().getSelectedItem();
+                if(selected != null){
+                    java.time.Month month = java.time.Month.valueOf(selected.toUpperCase());
+                    dashboardPanel.setCurrentMonth(month);
+                    dashboardPanel.refreshData();
+                }
+            });
 
-        // ===== DASHBOARD =====
-        dashboardPanel.getMonthPanel().getMonthComboBox().addActionListener(e -> {
-            String selected = (String) dashboardPanel.getMonthPanel().getMonthComboBox().getSelectedItem();
-            if(selected != null){
-                java.time.Month month = java.time.Month.valueOf(selected.toUpperCase());
-                dashboardPanel.setCurrentMonth(month);
-                dashboardPanel.refreshData();
-            }
-        });
+            // ===== ADD_DATA FEATURES CONTROLLERS =====
+            addDataPanel.getBtnIncome().addActionListener(e -> showIncome());
+            addDataPanel.getBtnSavings().addActionListener(e -> showSavings());
+            addDataPanel.getBtnBudget().addActionListener(e -> showBudget());
+            addDataPanel.getBtnExpenses().addActionListener(e -> showExpenses());
+
+            // ===== MANAGE FINANCES ======
+            manageFinances.get
     }
 
-    // ===== SIDEBARS =====
+    // ===== SHOW CARD PANEL - SIDE BUTTONS =====
     private void showDashboard() { mainFrame.showCard(MainFrame.DASHBOARD); }
     private void showAddData() { mainFrame.showCard(MainFrame.ADD_DATA);}
     private void showManage() { mainFrame.showCard(MainFrame.MANAGE);}
     private void showAnalysis() { mainFrame.showCard(MainFrame.ANALYSIS); }
 
-    // ===== ADD_DATA FEATURES =====
+    // ===== SHOW CARD PANEL ADD_DATA_INCOME =====
     private void showIncome() {
         addDataPanel.showCard(AddDataPanel.INCOME);
 
@@ -74,7 +77,7 @@ public class MoneyCureController {
         }
     }
 
-    // ===== SHOW SAVINGS =====
+    // ===== SHOW CARD PANEL ADD_DATA_SAVINGS =====
     private void showSavings() {
         addDataPanel.showCard(AddDataPanel.SAVINGS);
 
@@ -85,7 +88,7 @@ public class MoneyCureController {
         }
     }
 
-    // ===== SHOW BUDGET =====
+    // ===== SHOW CARD PANEL ADD_DATA_BUDGET =====
     private void showBudget() {
         addDataPanel.showCard(AddDataPanel.BUDGET);
 
@@ -96,7 +99,7 @@ public class MoneyCureController {
         }
     }
 
-    // ===== SHOW EXPENSES =====
+    // ===== SHOW CARD PANEL ADD_DATA_EXPENSES =====
     private void showExpenses() {
         addDataPanel.showCard(AddDataPanel.EXPENSES);
 
@@ -107,6 +110,7 @@ public class MoneyCureController {
         }
     }
 
+    // CLEAR FIELDS
     public static <E> void clearFields(JSpinner dateSpinner, JTextField txtAmount, JTextField txtNotes, JComboBox<E> comboBox) {
         if (dateSpinner != null) { dateSpinner.setValue(new Date());}
         if (txtAmount != null) { txtAmount.setText(""); }
@@ -116,9 +120,9 @@ public class MoneyCureController {
         }
     }
 
+    // GET SELECTED DATE
     public static String getSelectedDate(JSpinner dateSpinner){
         Date date = (Date) dateSpinner.getValue();
         return new java.text.SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 }
-
