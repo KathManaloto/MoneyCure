@@ -125,5 +125,8 @@ public class ManageFinancesPanel extends JPanel {
 
     // ===== GETTERS =====
     public JComboBox<String> getViewFilterDropdown(){ return viewFilterDropdown; }
+    public JComboBox<String> getMonthDropdown(){ return monthDropdown; }
+    public JComboBox<Integer> getYearDropdown(){ return yearDropdown; }
+    public JTextField getTxtFieldSearch(){ return txtFieldSearch; }
 
 }

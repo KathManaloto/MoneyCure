@@ -2,6 +2,7 @@
 package moneycure.controller;
 
 import moneycure.controller.addDataFeatures.*;
+import moneycure.controller.manage.ManageFinancesController;
 import moneycure.database.*;
 import moneycure.view.*;
 import moneycure.view.sidebar.*;
@@ -21,6 +22,8 @@ public class MoneyCureController {
     private SavingsController savingsController;
     private ExpenseController expenseController;
     private BudgetController budgetController;
+
+    private ManageFinancesController manageFinancesController;
 
     // ===== CONSTRUCTORS =====
     public MoneyCureController(MainFrame mainFrame, AddDataPanel addDataPanel, DashboardPanel dashboardPanel, ManageFinancesPanel manageFinances) {
@@ -55,59 +58,74 @@ public class MoneyCureController {
             addDataPanel.getBtnSavings().addActionListener(e -> showSavings());
             addDataPanel.getBtnBudget().addActionListener(e -> showBudget());
             addDataPanel.getBtnExpenses().addActionListener(e -> showExpenses());
-
-            // ===== MANAGE FINANCES ======
-            manageFinances.get
     }
 
-    // ===== SHOW CARD PANEL - SIDE BUTTONS =====
-    private void showDashboard() { mainFrame.showCard(MainFrame.DASHBOARD); }
-    private void showAddData() { mainFrame.showCard(MainFrame.ADD_DATA);}
-    private void showManage() { mainFrame.showCard(MainFrame.MANAGE);}
-    private void showAnalysis() { mainFrame.showCard(MainFrame.ANALYSIS); }
+    // ===== SHOW CARD PANEL - DASHBOARD =====
+    private void showDashboard() {
+        mainFrame.showCard(MainFrame.DASHBOARD);
+    }
 
-    // ===== SHOW CARD PANEL ADD_DATA_INCOME =====
-    private void showIncome() {
-        addDataPanel.showCard(AddDataPanel.INCOME);
+    // ===== SHOW CARD PANEL - ADD_DATA  =====
+    private void showAddData() {
+        mainFrame.showCard(MainFrame.ADD_DATA);
+    }
 
-        if(incomeController == null){
-            IncomeDAO incomeDAO     = new IncomeDAO();
-            IncomePanel incomePanel = addDataPanel.getIncomePanel();
-            incomeController = new IncomeController(incomePanel,incomeDAO,dashboardPanel);
+        // ----- SHOW CARD PANEL ADD_DATA_INCOME -----
+        private void showIncome() {
+            addDataPanel.showCard(AddDataPanel.INCOME);
+
+            if(incomeController == null){
+                IncomeDAO incomeDAO     = new IncomeDAO();
+                IncomePanel incomePanel = addDataPanel.getIncomePanel();
+                incomeController = new IncomeController(incomePanel,incomeDAO,dashboardPanel);
+            }
+        }
+
+        // ----- SHOW CARD PANEL ADD_DATA_SAVINGS -----
+        private void showSavings() {
+            addDataPanel.showCard(AddDataPanel.SAVINGS);
+
+            if(savingsController == null) {
+                SavingsDAO savingsDAO     = new SavingsDAO();
+                SavingsPanel savingsPanel = addDataPanel.getSavingsPanel();
+                savingsController         = new SavingsController(savingsPanel, savingsDAO, dashboardPanel);
+            }
+        }
+
+        // ----- SHOW CARD PANEL ADD_DATA_BUDGET -----
+        private void showBudget() {
+            addDataPanel.showCard(AddDataPanel.BUDGET);
+
+            if (budgetController == null) {
+                BudgetDAO budgetDAO     = new BudgetDAO();
+                BudgetPanel budgetPanel = addDataPanel.getBudgetPanel();
+                budgetController        = new BudgetController(budgetPanel, budgetDAO, dashboardPanel);
+            }
+        }
+
+        // V SHOW CARD PANEL ADD_DATA_EXPENSES -----
+        private void showExpenses() {
+            addDataPanel.showCard(AddDataPanel.EXPENSES);
+
+            if (expenseController == null) {
+                ExpenseDAO expenseDAO     = new ExpenseDAO();
+                ExpensePanel expensePanel = addDataPanel.getExpensePanel();
+                expenseController         = new ExpenseController(expensePanel, expenseDAO, dashboardPanel);
+            }
+        }
+
+
+    // ===== SHOW CARD PANEL - MANAGE_FINANCES  =====
+    private void showManage() {
+        mainFrame.showCard(MainFrame.MANAGE);
+        if (manageFinancesController == null) {
+            manageFinancesController = new ManageFinancesController(manageFinances);
         }
     }
 
-    // ===== SHOW CARD PANEL ADD_DATA_SAVINGS =====
-    private void showSavings() {
-        addDataPanel.showCard(AddDataPanel.SAVINGS);
-
-        if(savingsController == null) {
-            SavingsDAO savingsDAO     = new SavingsDAO();
-            SavingsPanel savingsPanel = addDataPanel.getSavingsPanel();
-            savingsController         = new SavingsController(savingsPanel, savingsDAO, dashboardPanel);
-        }
-    }
-
-    // ===== SHOW CARD PANEL ADD_DATA_BUDGET =====
-    private void showBudget() {
-        addDataPanel.showCard(AddDataPanel.BUDGET);
-
-        if (budgetController == null) {
-            BudgetDAO budgetDAO     = new BudgetDAO();
-            BudgetPanel budgetPanel = addDataPanel.getBudgetPanel();
-            budgetController        = new BudgetController(budgetPanel, budgetDAO, dashboardPanel);
-        }
-    }
-
-    // ===== SHOW CARD PANEL ADD_DATA_EXPENSES =====
-    private void showExpenses() {
-        addDataPanel.showCard(AddDataPanel.EXPENSES);
-
-        if (expenseController == null) {
-            ExpenseDAO expenseDAO     = new ExpenseDAO();
-            ExpensePanel expensePanel = addDataPanel.getExpensePanel();
-            expenseController         = new ExpenseController(expensePanel, expenseDAO, dashboardPanel);
-        }
+    // ===== SHOW CARD PANEL - FINANCIAL_ANALYSIS  =====
+    private void showAnalysis() {
+        mainFrame.showCard(MainFrame.ANALYSIS);
     }
 
     // CLEAR FIELDS

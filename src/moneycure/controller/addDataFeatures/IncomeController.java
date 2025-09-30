@@ -38,7 +38,7 @@ public class IncomeController {
         try{
             // date
             String date = MoneyCureController.getSelectedDate(incomePanel.getDateSpinner());
-                if(date.isEmpty()){
+                if(date == null || date.isEmpty()){
                     JOptionPane.showMessageDialog(
                         incomePanel,
                         "Date is required.",
@@ -50,7 +50,16 @@ public class IncomeController {
                 }
 
             // income source
-            String incomeCombo = Objects.requireNonNull(incomePanel.getIncomeCombo().getSelectedItem()).toString();
+            if (incomePanel.getIncomeCombo().getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(
+                        incomePanel,
+                        "Please select an income source.",
+                        "Validation Error",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+            String incomeCombo = incomePanel.getIncomeCombo().getSelectedItem().toString();
 
             // amount
             String amountText = incomePanel.getTxtAmountIncome().getText().trim();
