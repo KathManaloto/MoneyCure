@@ -5,7 +5,6 @@ import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
 import javax.swing.*;
-import java.util.*;
 import java.util.logging.*;
 
 public class IncomeController {
@@ -49,16 +48,7 @@ public class IncomeController {
                     return;
                 }
 
-            // income source
-            if (incomePanel.getIncomeCombo().getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(
-                        incomePanel,
-                        "Please select an income source.",
-                        "Validation Error",
-                        JOptionPane.WARNING_MESSAGE
-                );
-                return;
-            }
+            // income source (default = first item if user does nothing)
             String incomeCombo = incomePanel.getIncomeCombo().getSelectedItem().toString();
 
             // amount
@@ -109,7 +99,9 @@ public class IncomeController {
 
                 if(success){
                     JOptionPane.showMessageDialog(incomePanel, "Income added!");
+                    MoneyCureController.clearFields(incomePanel.getDateSpinner(),incomePanel.getTxtAmountIncome(),incomePanel.getTxtNotesIncome(),incomePanel.getIncomeCombo());
                     dashboardPanel.refreshData();
+
                 }
 
         } catch (Exception e){
