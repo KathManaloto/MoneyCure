@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
 
     // ===== FIELDS =====
     private JPanel mainPanel,cardPanel;
-    private JButton btnDashboard,btnAddData,btnManage,btnAnalysis;
+    private JButton btnDashboard,btnAddData,btnManage;
     private CardLayout cardLayout;
 
     private DashboardPanel dashboard;
@@ -56,12 +56,10 @@ public class MainFrame extends JFrame {
         btnDashboard = createSidebarButton("Dashboard");
         btnAddData   = createSidebarButton("Add Data");
         btnManage    = createSidebarButton("Manage Finances");
-        btnAnalysis  = createSidebarButton("Financial Analysis");
 
         sidebar.add(btnDashboard);
         sidebar.add(btnAddData);
         sidebar.add(btnManage);
-        sidebar.add(btnAnalysis);
 
         // ----- CardPanel -----
         cardLayout = new CardLayout();
@@ -71,12 +69,10 @@ public class MainFrame extends JFrame {
         dashboard      = new DashboardPanel();
         addData        = new AddDataPanel();
         manageFinances = new ManageFinancesPanel();
-        FinancialAnalysisPanel analysis = new FinancialAnalysisPanel();
 
         cardPanel.add(dashboard,DASHBOARD);
         cardPanel.add(addData,ADD_DATA);
         cardPanel.add(manageFinances,MANAGE);
-        cardPanel.add(analysis,ANALYSIS);
 
         mainPanel.add(sidebar,BorderLayout.WEST);
         mainPanel.add(cardPanel,BorderLayout.CENTER);
@@ -105,7 +101,6 @@ public class MainFrame extends JFrame {
     public JButton getBtnDashboard(){ return btnDashboard; }
     public JButton getBtnAddData(){ return btnAddData; }
     public JButton getBtnManage(){ return btnManage; }
-    public JButton getBtnAnalysis(){ return btnAnalysis;}
 
     public DashboardPanel getDashboardPanel() { return dashboard; }
     public AddDataPanel getAddData(){ return addData; }

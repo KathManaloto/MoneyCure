@@ -4,7 +4,7 @@ import moneycure.model.Transaction;
 import moneycure.view.Helper;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.time.*;
 import java.util.*;
@@ -127,11 +127,11 @@ public class ManageFinancesPanel extends JPanel {
 
         for(Transaction t : transactions){
             model.addRow(new Object[]{
-                    t.getDate(),
-                    t.getCategory(),
-                    t.getDescription(),
-                    t.getAmount(),
-                    t.getNotes()
+                t.getDate(),
+                t.getCategory(),
+                t.getDescription(),
+                t.getAmount(),
+                t.getNotes()
             });
         }
 

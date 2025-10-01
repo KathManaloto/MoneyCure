@@ -48,7 +48,6 @@ public class MoneyCureController {
         mainFrame.getBtnDashboard().addActionListener(e -> showDashboard());
         mainFrame.getBtnAddData().addActionListener(e -> showAddData());
         mainFrame.getBtnManage().addActionListener(e -> showManage());
-        mainFrame.getBtnAnalysis().addActionListener(e -> showAnalysis());
 
             // ===== DASHBOARD CONTROLLER =====
             dashboardPanel.getMonthPanel().getMonthComboBox().addActionListener(e -> {
