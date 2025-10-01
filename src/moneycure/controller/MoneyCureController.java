@@ -18,11 +18,6 @@ public class MoneyCureController {
     private final DashboardPanel dashboardPanel;
     private final ManageFinancesPanel manageFinances;
 
-    private final IncomeController incomeController;
-    private final SavingsController savingsController;
-    private final ExpenseController expenseController;
-    private final BudgetController budgetController;
-
     private ManageFinancesController manageFinancesController;
 
     // ===== CONSTRUCTORS =====
@@ -32,10 +27,10 @@ public class MoneyCureController {
         this.dashboardPanel = dashboardPanel;
         this.manageFinances = manageFinances;
 
-        incomeController  = new IncomeController(addDataPanel.getIncomePanel(), new IncomeDAO(), dashboardPanel);
-        savingsController = new SavingsController(addDataPanel.getSavingsPanel(), new SavingsDAO(), dashboardPanel);
-        budgetController  = new BudgetController(addDataPanel.getBudgetPanel(), new BudgetDAO(), dashboardPanel);
-        expenseController = new ExpenseController(addDataPanel.getExpensePanel(), new ExpenseDAO(), dashboardPanel);
+        IncomeController incomeController = new IncomeController(addDataPanel.getIncomePanel(), new IncomeDAO(), dashboardPanel);
+        SavingsController savingsController = new SavingsController(addDataPanel.getSavingsPanel(), new SavingsDAO(), dashboardPanel);
+        BudgetController budgetController = new BudgetController(addDataPanel.getBudgetPanel(), new BudgetDAO(), dashboardPanel);
+        ExpenseController expenseController = new ExpenseController(addDataPanel.getExpensePanel(), new ExpenseDAO(), dashboardPanel);
 
         initController();
 
@@ -67,35 +62,16 @@ public class MoneyCureController {
     }
 
     // ===== SHOW CARD PANEL - DASHBOARD =====
-    private void showDashboard() {
-        mainFrame.showCard(MainFrame.DASHBOARD);
-    }
+    private void showDashboard() { mainFrame.showCard(MainFrame.DASHBOARD);}
 
     // ===== SHOW CARD PANEL - ADD_DATA  =====
-    private void showAddData() {
-        mainFrame.showCard(MainFrame.ADD_DATA);
-    }
+    private void showAddData() { mainFrame.showCard(MainFrame.ADD_DATA);}
 
-        // ----- SHOW CARD PANEL ADD_DATA_INCOME -----
-        private void showIncome() {
-            addDataPanel.showCard(AddDataPanel.INCOME);
-        }
-
-        // ----- SHOW CARD PANEL ADD_DATA_SAVINGS -----
-        private void showSavings() {
-            addDataPanel.showCard(AddDataPanel.SAVINGS);
-        }
-
-        // ----- SHOW CARD PANEL ADD_DATA_BUDGET -----
-        private void showBudget() {
-            addDataPanel.showCard(AddDataPanel.BUDGET);
-        }
-
-        // V SHOW CARD PANEL ADD_DATA_EXPENSES -----
-        private void showExpenses() {
-            addDataPanel.showCard(AddDataPanel.EXPENSES);
-        }
-
+        // ADD_DATA FEATURES
+        private void showIncome()  { addDataPanel.showCard(AddDataPanel.INCOME);}
+        private void showSavings() { addDataPanel.showCard(AddDataPanel.SAVINGS);}
+        private void showBudget()  { addDataPanel.showCard(AddDataPanel.BUDGET); }
+        private void showExpenses(){ addDataPanel.showCard(AddDataPanel.EXPENSES);}
 
     // ===== SHOW CARD PANEL - MANAGE_FINANCES  =====
     private void showManage() {
@@ -103,11 +79,6 @@ public class MoneyCureController {
         if (manageFinancesController == null) {
             manageFinancesController = new ManageFinancesController(manageFinances,new TransactionDAO());
         }
-    }
-
-    // ===== SHOW CARD PANEL - FINANCIAL_ANALYSIS  =====
-    private void showAnalysis() {
-        mainFrame.showCard(MainFrame.ANALYSIS);
     }
 
     // CLEAR FIELDS

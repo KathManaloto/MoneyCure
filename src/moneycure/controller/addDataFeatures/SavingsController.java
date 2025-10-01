@@ -89,8 +89,8 @@ public class SavingsController {
             // notes
             String notes    = savingsPanel.getTxtNotesSavings().getText();
 
+            // connect to database
             Savings savings = new Savings(date, savingsTypeCombo, amountSavings, notes);
-
             boolean success = savingsDAO.addSavings(savings);
 
             if(success){

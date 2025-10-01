@@ -5,6 +5,7 @@ import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
 import javax.swing.*;
+import java.util.Objects;
 import java.util.logging.*;
 
 public class IncomeController {
@@ -37,7 +38,7 @@ public class IncomeController {
         try{
             // date
             String date = MoneyCureController.getSelectedDate(incomePanel.getDateSpinner());
-                if(date == null || date.isEmpty()){
+                if(date.isEmpty()){
                     JOptionPane.showMessageDialog(
                         incomePanel,
                         "Date is required.",
@@ -49,7 +50,7 @@ public class IncomeController {
                 }
 
             // income source (default = first item if user does nothing)
-            String incomeCombo = incomePanel.getIncomeCombo().getSelectedItem().toString();
+            String incomeCombo = Objects.requireNonNull(incomePanel.getIncomeCombo().getSelectedItem()).toString();
 
             // amount
             String amountText = incomePanel.getTxtAmountIncome().getText().trim();
