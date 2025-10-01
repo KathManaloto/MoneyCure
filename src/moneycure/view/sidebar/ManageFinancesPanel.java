@@ -1,5 +1,6 @@
 package moneycure.view.sidebar;
 
+import moneycure.model.Transaction;
 import moneycure.view.Helper;
 
 import javax.swing.*;
@@ -101,16 +102,9 @@ public class ManageFinancesPanel extends JPanel {
 
         // CENTER PANEL
         String[] columnNames = {"Date","Category", "Description", "Amount","Notes"};
-        Object[][] sampleData = {
-            {"2025-09-01", "Income", "Salary" , 5000, "-"},
-            {"2025-09-02", "Expenses", "Groceries", -200, "-"},
-            {"2025-09-03", "Savings", "Emergency Fund", -300, "-"}
-        };
-
-        DefaultTableModel tableModel = new DefaultTableModel(sampleData,columnNames){
-            public boolean isCellEditable(int row, int column){
-                return false;
-            }
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column){ return false; }
         };
 
         transactionTable = new JTable(tableModel);
@@ -119,8 +113,29 @@ public class ManageFinancesPanel extends JPanel {
         transactionTable.getTableHeader().setReorderingAllowed(false);
 
         JScrollPane scrollPane = new JScrollPane(transactionTable);
-
         add(scrollPane, BorderLayout.CENTER);
+    }
+
+    public void updateTransactionTable(List<Transaction> transactions){
+        String[] columnNames = {"Date","Category", "Description", "Amount","Notes"};
+
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0){
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+
+        for(Transaction t : transactions){
+            model.addRow(new Object[]{
+                    t.getDate(),
+                    t.getCategory(),
+                    t.getDescription(),
+                    t.getAmount(),
+                    t.getNotes()
+            });
+        }
+
+        transactionTable.setModel(model);
     }
 
     // ===== GETTERS =====

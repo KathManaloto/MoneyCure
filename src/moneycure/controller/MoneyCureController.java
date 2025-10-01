@@ -102,7 +102,7 @@ public class MoneyCureController {
     private void showManage() {
         mainFrame.showCard(MainFrame.MANAGE);
         if (manageFinancesController == null) {
-            manageFinancesController = new ManageFinancesController(manageFinances);
+            manageFinancesController = new ManageFinancesController(manageFinances,new TransactionDAO());
         }
     }
 
