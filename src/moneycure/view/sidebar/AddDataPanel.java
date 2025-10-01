@@ -52,13 +52,13 @@ public class AddDataPanel extends JPanel {
             topPanel.add(btnExpenses);
 
             // ===== CONTENT AREA (CardLayout) =====
+            incomePanel  = new IncomePanel();
+            savingsPanel = new SavingsPanel();
+            budgetPanel  = new BudgetPanel();
+            expensePanel = new ExpensePanel();
+
             cardLayout   = new CardLayout();
             contentPanel = new JPanel(cardLayout);
-
-                incomePanel  = new IncomePanel();
-                savingsPanel = new SavingsPanel();
-                budgetPanel  = new BudgetPanel();
-                expensePanel = new ExpensePanel();
 
             contentPanel.add(incomePanel,INCOME);
             contentPanel.add(savingsPanel,SAVINGS);

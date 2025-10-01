@@ -19,14 +19,11 @@ public class DashboardPanel extends JPanel {
     private final MonthSelectorPanel monthPanel;
     private final int currentYear;
 
-    private final SummaryPanel balancePanel;
-    private final SummaryPanel expensesPanel;
-    private final SummaryPanel savingsPanel;
+    private final SummaryPanel balancePanel, expensesPanel, savingsPanel;
     private final ProgressBarsPanel progressBarsPanel;
 
     private Month currentMonth;
-    private Map<String, Double> budgets;
-    private Map<String, Double> expenses;
+    private Map<String, Double> budgets, expenses;
 
     // ===== CONSTRUCTOR =====
     public DashboardPanel() {
@@ -36,10 +33,7 @@ public class DashboardPanel extends JPanel {
             // ===== TOP PANEL =====
             JPanel topPanel = new JPanel(new GridLayout(1, 4, 10, 10));
 
-                // ----- TopMonthPanel -----
-                monthPanel = new MonthSelectorPanel();
-
-                // ----- TopSummary panels -----
+                monthPanel    = new MonthSelectorPanel();
                 balancePanel  = new SummaryPanel("Balance");
                 expensesPanel = new SummaryPanel("Expenses");
                 savingsPanel  = new SummaryPanel("Savings");
@@ -90,16 +84,16 @@ public class DashboardPanel extends JPanel {
         double totalIncome = incomeDAO.getMonthlyIncomeTotal(currentMonth, currentYear);
 
         double totalExpenses = expenses.values().stream().mapToDouble(Double::doubleValue).sum();
-        expensesPanel.setValue(totalExpenses);
-        expensesPanel.setToolTipText("Total monthly expenses");
+            expensesPanel.setValue(totalExpenses);
+            expensesPanel.setToolTipText("Total monthly expenses");
 
         double savings = savingsDAO.getMonthlySavings(currentMonth,currentYear);
-        savingsPanel.setValue(savings);
-        savingsPanel.setToolTipText("Total Monthly Savings");
+            savingsPanel.setValue(savings);
+            savingsPanel.setToolTipText("Total Monthly Savings");
 
         double balance = totalIncome - totalExpenses;
-        balancePanel.setValue(balance);
-        balancePanel.setToolTipText("Total Monthly Income - Total Monthly Expenses");
+            balancePanel.setValue(balance);
+            balancePanel.setToolTipText("Total Monthly Income - Total Monthly Expenses");
     }
 
     // ===== GETTERS & SETTERS =====

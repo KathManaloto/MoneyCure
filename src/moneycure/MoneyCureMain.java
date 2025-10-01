@@ -32,10 +32,10 @@ public class MoneyCureMain {
 
             // Create splash window
             JWindow splash = new JWindow();
-            splash.add(new JLabel("Initializing database...",SwingConstants.CENTER));
-            splash.setSize(300, 100);
-            splash.setLocationRelativeTo(null);
-            splash.setVisible(true);
+                splash.add(new JLabel("Initializing database...",SwingConstants.CENTER));
+                splash.setSize(300, 100);
+                splash.setLocationRelativeTo(null);
+                splash.setVisible(true);
 
             // Run database setup in background
             SwingWorker<Void, Void> worker = new SwingWorker<>(){

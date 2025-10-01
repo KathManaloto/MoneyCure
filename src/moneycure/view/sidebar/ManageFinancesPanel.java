@@ -2,7 +2,6 @@ package moneycure.view.sidebar;
 
 import moneycure.model.Transaction;
 import moneycure.view.Helper;
-
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
@@ -38,12 +37,12 @@ public class ManageFinancesPanel extends JPanel {
             // ===== View Filter =====
             JPanel viewFilterPanel = new JPanel(new BorderLayout());
 
-                viewFilterDropdown = new JComboBox<>(new String[]{"All", "Income", "Savings", "Budget", "Expenses"});
+            viewFilterDropdown = new JComboBox<>(new String[]{"All", "Income", "Savings", "Budget", "Expenses"});
                 viewFilterDropdown.setPreferredSize(new Dimension(140, 30));
                 viewFilterPanel.add(viewFilterDropdown);
 
-                Helper.styleFilterDropdown(viewFilterDropdown);
                 stylePanelBorder(viewFilterPanel,"Select View");
+                Helper.styleFilterDropdown(viewFilterDropdown);
                 Helper.stylePanelBackground(viewFilterPanel);
 
             // ===== Month Filter =====
@@ -53,12 +52,13 @@ public class ManageFinancesPanel extends JPanel {
             };
 
             JPanel monthFilterPanel = new JPanel(new BorderLayout());
-                monthDropdown = new JComboBox<>(months);
+
+            monthDropdown = new JComboBox<>(months);
                 monthDropdown.setPreferredSize(new Dimension(140, 30));
                 monthFilterPanel.add(monthDropdown);
 
-                Helper.styleFilterDropdown(monthDropdown);
                 stylePanelBorder(monthFilterPanel,"Month");
+                Helper.styleFilterDropdown(monthDropdown);
                 Helper.stylePanelBackground(monthFilterPanel);
 
             // ===== Year Filter =====
@@ -67,14 +67,15 @@ public class ManageFinancesPanel extends JPanel {
             for(int y=2015; y<= currentYear; y++){ years.add(y);}
 
             JPanel yearFilterPanel = new JPanel(new BorderLayout());
-                yearDropdown = new JComboBox<>(years.toArray(new Integer[0]));
+
+            yearDropdown = new JComboBox<>(years.toArray(new Integer[0]));
                 yearDropdown.setPreferredSize(new Dimension(140, 30));
                 yearDropdown.setSelectedItem(currentYear); // default selection
                 yearFilterPanel.add(yearDropdown);
 
-            Helper.styleFilterDropdown(yearDropdown);
-            stylePanelBorder(yearFilterPanel, "Year");
-            Helper.stylePanelBackground(yearFilterPanel);
+                stylePanelBorder(yearFilterPanel, "Year");
+                Helper.styleFilterDropdown(yearDropdown);
+                Helper.stylePanelBackground(yearFilterPanel);
 
         filterPanel.add(viewFilterPanel);
         filterPanel.add(monthFilterPanel);
@@ -108,9 +109,9 @@ public class ManageFinancesPanel extends JPanel {
         };
 
         transactionTable = new JTable(tableModel);
-        transactionTable.setFillsViewportHeight(true);
-        transactionTable.setRowHeight(25);
-        transactionTable.getTableHeader().setReorderingAllowed(false);
+            transactionTable.setFillsViewportHeight(true);
+            transactionTable.setRowHeight(25);
+            transactionTable.getTableHeader().setReorderingAllowed(false);
 
         JScrollPane scrollPane = new JScrollPane(transactionTable);
         add(scrollPane, BorderLayout.CENTER);

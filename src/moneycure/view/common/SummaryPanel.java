@@ -14,11 +14,10 @@ public class SummaryPanel extends JPanel {
         setLayout(new BorderLayout());
 
             valueLabel = new JLabel("₱0.00", SwingConstants.CENTER);
-            valueLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
-            valueLabel.setForeground(new Color(56, 56, 56));
+                valueLabel.setFont(new Font("Verdana", Font.PLAIN, 16));
+                valueLabel.setForeground(new Color(56, 56, 56));
 
-            Helper.stylePanelBorder(this, title);
-
+        Helper.stylePanelBorder(this, title);
         add(valueLabel, BorderLayout.CENTER);
     }
 

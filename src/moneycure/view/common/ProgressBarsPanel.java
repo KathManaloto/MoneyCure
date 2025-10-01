@@ -8,8 +8,7 @@ import java.util.*;
 public class ProgressBarsPanel extends JPanel {
 
     // ===== FIELDS =====
-    private Map<String, Double> budgets;
-    private Map<String, Double> expenses;
+    private Map<String, Double> budgets, expenses;
 
     // ===== CONSTRUCTOR =====
     public ProgressBarsPanel(Map<String, Double> budgets, Map<String, Double> expenses) {
