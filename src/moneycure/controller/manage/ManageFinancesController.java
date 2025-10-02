@@ -3,7 +3,6 @@ package moneycure.controller.manage;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.sidebar.*;
-import java.time.Month;
 import java.util.List;
 
 public class ManageFinancesController {
@@ -16,51 +15,68 @@ public class ManageFinancesController {
         this.transactionDAO = transactionDAO;
 
         initComponent();
-        applyFilters(); // load initial
+        loadTransactions();
     }
 
     private void initComponent(){
-        manageFinancesPanel.getViewFilterDropdown().addActionListener(e -> applyFilters());
-        manageFinancesPanel.getMonthDropdown().addActionListener(e -> applyFilters());
-        manageFinancesPanel.getYearDropdown().addActionListener(e -> applyFilters());
-        manageFinancesPanel.getTxtFieldSearch().addActionListener(e -> applyFilters());
+
+        // hook up dropdowns
+        manageFinancesPanel.getViewFilterDropdown().addActionListener(e -> filterByView());
+        manageFinancesPanel.getMonthDropdown().addActionListener(e -> filterByMonth());
+        manageFinancesPanel.getYearDropdown().addActionListener(e -> filterByYear());
+
+        // search field
+        manageFinancesPanel.getTxtFieldSearch().addActionListener(e -> searchTransactions());
     }
 
-    private void applyFilters(){
+    public void loadTransactions(){
         List<Transaction> transactions = transactionDAO.getAllTransactions();
-
-        // === View filter ===
-        String selectedView = (String) manageFinancesPanel.getViewFilterDropdown().getSelectedItem();
-        transactions = transactions.stream()
-                .filter(t -> "All".equalsIgnoreCase(selectedView) ||
-                        t.getCategory().equalsIgnoreCase(selectedView))
-                .toList();
-
-        // === Month filter ===
-        String selectedMonth = (String) manageFinancesPanel.getMonthDropdown().getSelectedItem();
-        if (!"All Months".equalsIgnoreCase(selectedMonth)) {
-            int monthValue = Month.valueOf(selectedMonth.toUpperCase()).getValue();
-            transactions = transactions.stream()
-                    .filter(t -> t.getDate().getMonthValue() == monthValue)
-                    .toList();
-        }
-
-        // === Year filter ===
-        Integer selectedYear = (Integer) manageFinancesPanel.getYearDropdown().getSelectedItem();
-        transactions = transactions.stream()
-                .filter(t -> t.getDate().getYear() == selectedYear)
-                .toList();
-
-        // === Search filter ===
-        String query = manageFinancesPanel.getTxtFieldSearch().getText().trim().toLowerCase();
-        if (!query.isEmpty()) {
-            transactions = transactions.stream()
-                    .filter(t -> t.getDescription().toLowerCase().contains(query) ||
-                            t.getNotes().toLowerCase().contains(query))
-                    .toList();
-        }
-
-        // update table
         manageFinancesPanel.updateTransactionTable(transactions);
     }
+
+    private void filterByView(){
+        List<Transaction> transactions = transactionDAO.getAllTransactions();
+        String selected = (String) manageFinancesPanel.getViewFilterDropdown().getSelectedItem();
+
+        if(!"All".equalsIgnoreCase(selected)){
+            transactions = transactions.stream()
+                    .filter(t -> t.getCategory().equalsIgnoreCase(selected))
+                    .toList();
+        }
+
+        manageFinancesPanel.updateTransactionTable(transactions);
+    }
+
+    private void filterByMonth(){
+        List<Transaction> transactions = transactionDAO.getAllTransactions();
+        String selected = (String) manageFinancesPanel.getMonthDropdown().getSelectedItem();
+
+        if(!"All Months".equalsIgnoreCase(selected)){
+            int selectedMonth = java.time.Month.valueOf(selected.toUpperCase()).getValue();
+            transactions = transactions.stream()
+                    .filter(t -> t.getDate().getMonthValue() == selectedMonth)
+                    .toList();
+        }
+
+        manageFinancesPanel.updateTransactionTable(transactions);
+    }
+
+    private void filterByYear(){
+        List<Transaction> transactions = transactionDAO.getAllTransactions();
+        Integer selectedYear = (Integer) manageFinancesPanel.getYearDropdown().getSelectedItem();
+
+        transactions = transactions.stream()
+                    .filter(t -> t.getDate().getYear() == selectedYear)
+                    .toList();
+
+
+        manageFinancesPanel.updateTransactionTable(transactions);
+    }
+
+    private void searchTransactions(){
+        String query = manageFinancesPanel.getTxtFieldSearch().getText();
+        loadTransactions();
+
+    }
+
 }

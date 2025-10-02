@@ -2,6 +2,7 @@ package moneycure.database;
 
 import moneycure.model.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class TransactionDAO {
@@ -20,7 +21,7 @@ public class TransactionDAO {
 
                 while(rs.next()){
                     transactions.add(new Transaction(
-                        rs.getString("date"),
+                        LocalDate.parse(rs.getString("date")),
                         "Income",
                         rs.getString("incomeSource"),
                         rs.getDouble("amount"),
@@ -37,8 +38,8 @@ public class TransactionDAO {
 
                 while(rs.next()){
                     transactions.add(new Transaction(
-                        rs.getString("date"),
-                        "Savings",
+                        LocalDate.parse(rs.getString("date")),
+                            "Savings",
                         rs.getString("savingsType"),
                         rs.getDouble("amount"),
                         rs.getString("notes")
@@ -54,7 +55,7 @@ public class TransactionDAO {
 
                 while(rs.next()){
                     transactions.add(new Transaction(
-                        rs.getString("date"),
+                        LocalDate.parse(rs.getString("date")),
                         "Expenses",
                         rs.getString("category"),
                         rs.getDouble("amount"),
@@ -71,7 +72,7 @@ public class TransactionDAO {
 
                 while(rs.next()){
                     transactions.add(new Transaction(
-                        rs.getString("date"),
+                        LocalDate.parse(rs.getString("date")),
                         "Budget",
                         rs.getString("category"),
                         rs.getDouble("amount"),
