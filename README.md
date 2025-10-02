@@ -46,6 +46,6 @@ It helps users manage their **income, expenses, and savings** in one place, with
 ![MANAGE FINANCES](resources/screenshot3.png)
 
 ## 👤 Author
-- **Kathlene Manaloto**
+- **Kathlene Manaloto** 
 - [GitHub](https://github.com/KathManaloto)
 - [LinkedIn](https://www.linkedin.com/in/kathlene-manaloto/) 
