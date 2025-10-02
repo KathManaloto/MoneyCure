@@ -2,10 +2,10 @@
 package moneycure.controller.addDataFeatures;
 
 import moneycure.controller.MoneyCureController;
+import moneycure.controller.manage.ManageFinancesController;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
-
 import javax.swing.*;
 import java.util.List;
 import java.util.logging.*;
@@ -16,14 +16,16 @@ public class ExpenseController {
     private final ExpenseDAO expenseDAO;
     private final ExpensePanel expensePanel;
     private final DashboardPanel dashboardPanel;
+    private final ManageFinancesController manageFinancesController;
 
     private static final Logger LOGGER = Logger.getLogger(ExpenseController.class.getName());
 
     // ===== CONSTRUCTOR =====
-    public ExpenseController(ExpensePanel expensePanel, ExpenseDAO expenseDAO, DashboardPanel dashboardPanel) {
+    public ExpenseController(ExpensePanel expensePanel, ExpenseDAO expenseDAO, DashboardPanel dashboardPanel, ManageFinancesController manageFinancesController) {
         this.expensePanel = expensePanel;
         this.expenseDAO = expenseDAO;
         this.dashboardPanel = dashboardPanel;
+        this.manageFinancesController = manageFinancesController;
 
         LOGGER.info("ExpenseController initialized!");
         initController();
@@ -106,6 +108,7 @@ public class ExpenseController {
                     loadRecentExpenses();
                     MoneyCureController.clearFields(expensePanel.getDateSpinner(),expensePanel.getTxtAmountExpenses(),expensePanel.getTxtNotesExpenses(),expensePanel.getExpensesCategoryCombo());
                     dashboardPanel.refreshData();
+                    manageFinancesController.loadTransactions();
 
                 } else {
                     JOptionPane.showMessageDialog(expensePanel, "Failed to add expense.");

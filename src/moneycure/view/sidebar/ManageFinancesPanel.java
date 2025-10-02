@@ -1,15 +1,14 @@
 package moneycure.view.sidebar;
 
-import moneycure.model.Transaction;
-import moneycure.view.Helper;
+import static moneycure.view.Helper.*;
+import moneycure.model.*;
+import moneycure.view.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.time.*;
 import java.util.*;
 import java.util.List;
-
-import static moneycure.view.Helper.stylePanelBorder;
 
 public class ManageFinancesPanel extends JPanel {
 
@@ -144,5 +143,4 @@ public class ManageFinancesPanel extends JPanel {
     public JComboBox<String> getMonthDropdown(){ return monthDropdown; }
     public JComboBox<Integer> getYearDropdown(){ return yearDropdown; }
     public JTextField getTxtFieldSearch(){ return txtFieldSearch; }
-
 }

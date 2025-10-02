@@ -1,6 +1,7 @@
 package moneycure.controller.addDataFeatures;
 
 import moneycure.controller.*;
+import moneycure.controller.manage.ManageFinancesController;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
@@ -12,11 +13,13 @@ public class SavingsController {
     private final SavingsPanel savingsPanel;
     private final SavingsDAO savingsDAO;
     private final DashboardPanel dashboardPanel;
+    private final ManageFinancesController manageFinancesController;
 
-    public SavingsController(SavingsPanel savingsPanel, SavingsDAO savingsDAO, DashboardPanel dashboardPanel){
+    public SavingsController(SavingsPanel savingsPanel, SavingsDAO savingsDAO, DashboardPanel dashboardPanel, ManageFinancesController manageFinancesController){
         this.savingsPanel   = savingsPanel;
         this.savingsDAO     = savingsDAO;
         this.dashboardPanel = dashboardPanel;
+        this.manageFinancesController = manageFinancesController;
 
         initController();
     }
@@ -97,6 +100,7 @@ public class SavingsController {
                 JOptionPane.showMessageDialog(savingsPanel,"Savings added successfully");
                 MoneyCureController.clearFields(savingsPanel.getDateSpinner(),savingsPanel.getTxtAmountSavings(),savingsPanel.getTxtNotesSavings(),savingsPanel.getSavingsTypeCombo());
                 dashboardPanel.refreshData();
+                manageFinancesController.loadTransactions();
 
             } else {
             JOptionPane.showMessageDialog(savingsPanel, "Failed to add savings.");

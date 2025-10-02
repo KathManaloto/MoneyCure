@@ -26,11 +26,12 @@ public class MoneyCureController {
         this.addDataPanel   = addDataPanel;
         this.dashboardPanel = dashboardPanel;
         this.manageFinances = manageFinances;
+        this.manageFinancesController = new ManageFinancesController(manageFinances, new TransactionDAO());
 
-        IncomeController incomeController = new IncomeController(addDataPanel.getIncomePanel(), new IncomeDAO(), dashboardPanel);
-        SavingsController savingsController = new SavingsController(addDataPanel.getSavingsPanel(), new SavingsDAO(), dashboardPanel);
-        BudgetController budgetController = new BudgetController(addDataPanel.getBudgetPanel(), new BudgetDAO(), dashboardPanel);
-        ExpenseController expenseController = new ExpenseController(addDataPanel.getExpensePanel(), new ExpenseDAO(), dashboardPanel);
+        IncomeController incomeController = new IncomeController(addDataPanel.getIncomePanel(), new IncomeDAO(), dashboardPanel, manageFinancesController);
+        SavingsController savingsController = new SavingsController(addDataPanel.getSavingsPanel(), new SavingsDAO(), dashboardPanel, manageFinancesController);
+        BudgetController budgetController = new BudgetController(addDataPanel.getBudgetPanel(), new BudgetDAO(), dashboardPanel, manageFinancesController);
+        ExpenseController expenseController = new ExpenseController(addDataPanel.getExpensePanel(), new ExpenseDAO(), dashboardPanel, manageFinancesController);
 
         initController();
 
@@ -78,6 +79,7 @@ public class MoneyCureController {
         mainFrame.showCard(MainFrame.MANAGE);
         if (manageFinancesController == null) {
             manageFinancesController = new ManageFinancesController(manageFinances,new TransactionDAO());
+
         }
     }
 

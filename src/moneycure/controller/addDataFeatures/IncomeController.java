@@ -1,6 +1,7 @@
 package moneycure.controller.addDataFeatures;
 
 import moneycure.controller.*;
+import moneycure.controller.manage.ManageFinancesController;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
@@ -14,14 +15,16 @@ public class IncomeController {
     private final IncomeDAO incomeDAO;
     private final IncomePanel incomePanel;
     private final DashboardPanel dashboardPanel;
+    private final ManageFinancesController manageFinancesController;
 
     private static final Logger LOGGER = Logger.getLogger(IncomeController.class.getName());
 
     // ===== CONSTRUCTOR =====
-    public IncomeController(IncomePanel incomePanel, IncomeDAO incomeDAO, DashboardPanel dashboardPanel){
+    public IncomeController(IncomePanel incomePanel, IncomeDAO incomeDAO, DashboardPanel dashboardPanel, ManageFinancesController manageFinancesController){
         this.incomePanel    = incomePanel;
         this.incomeDAO      = incomeDAO;
         this.dashboardPanel = dashboardPanel;
+        this.manageFinancesController = manageFinancesController;
 
         initController();
     }
@@ -100,9 +103,13 @@ public class IncomeController {
 
                 if(success){
                     JOptionPane.showMessageDialog(incomePanel, "Income added!");
-                    MoneyCureController.clearFields(incomePanel.getDateSpinner(),incomePanel.getTxtAmountIncome(),incomePanel.getTxtNotesIncome(),incomePanel.getIncomeCombo());
+                    MoneyCureController.clearFields(
+                            incomePanel.getDateSpinner(),
+                            incomePanel.getTxtAmountIncome(),
+                            incomePanel.getTxtNotesIncome(),
+                            incomePanel.getIncomeCombo());
                     dashboardPanel.refreshData();
-
+                    manageFinancesController.loadTransactions();
                 }
 
         } catch (Exception e){

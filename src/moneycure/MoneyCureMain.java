@@ -53,6 +53,8 @@ public class MoneyCureMain {
                         get();
 
                         // Launch main application
+                        TransactionDAO transactionDAO = new TransactionDAO();
+                        BudgetDAO budgetDAO = new BudgetDAO();
                         MainFrame mainFrame = new MainFrame();
                         new MoneyCureController(mainFrame, mainFrame.getAddData(), mainFrame.getDashboardPanel(), mainFrame.getManageFinancesPanel());
                         mainFrame.setVisible(true);

@@ -17,9 +17,9 @@ public class AddDataPanel extends JPanel {
     public static final String BUDGET   = "Budget";
     public static final String EXPENSES = "Expenses";
 
-    private BudgetPanel budgetPanel;
+    private BudgetPanel  budgetPanel;
     private ExpensePanel expensePanel;
-    private IncomePanel incomePanel;
+    private IncomePanel  incomePanel;
     private SavingsPanel savingsPanel;
 
     // ===== CONSTRUCTOR =====

@@ -2,6 +2,7 @@
 package moneycure.controller.addDataFeatures;
 
 import moneycure.controller.*;
+import moneycure.controller.manage.ManageFinancesController;
 import moneycure.database.*;
 import moneycure.model.*;
 import moneycure.view.feature.*;
@@ -15,14 +16,16 @@ public class BudgetController {
     private final BudgetDAO budgetDAO;
     private final BudgetPanel budgetPanel;
     private final DashboardPanel dashboardPanel;
+    private final ManageFinancesController manageFinancesController;
 
     private static final Logger LOGGER = Logger.getLogger(BudgetController.class.getName());
 
     // ===== CONSTRUCTOR =====
-    public BudgetController(BudgetPanel budgetPanel, BudgetDAO budgetDAO, DashboardPanel dashboardPanel) {
+    public BudgetController(BudgetPanel budgetPanel, BudgetDAO budgetDAO, DashboardPanel dashboardPanel, ManageFinancesController manageFinancesController) {
         this.budgetPanel = budgetPanel;
         this.budgetDAO = budgetDAO;
         this.dashboardPanel = dashboardPanel;
+        this.manageFinancesController = manageFinancesController;
 
         LOGGER.info("BudgetController initialized!");
         initController();
@@ -106,6 +109,7 @@ public class BudgetController {
 
                 loadRecentBudgets();
                 dashboardPanel.refreshData();
+                manageFinancesController.loadTransactions();
                 MoneyCureController.clearFields(budgetPanel.getDateSpinner(), budgetPanel.getTxtAmountBudget(), budgetPanel.getTxtNotesBudget(), budgetPanel.getBudgetCategoryCombo());
 
             } else {

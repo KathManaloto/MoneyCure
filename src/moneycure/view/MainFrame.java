@@ -20,7 +20,6 @@ public class MainFrame extends JFrame {
     public static final String DASHBOARD = "Dashboard";
     public static final String ADD_DATA  = "Add Data";
     public static final String MANAGE    = "Manage Finances";
-    public static final String ANALYSIS  = "Financial Analysis";
 
     // ===== CONSTRUCTOR =====
     public MainFrame(){
