@@ -32,7 +32,7 @@ It helps users manage their **income, expenses, and savings** in one place, with
 - **Language**: Java (JDK 17)
 - **IDE[.gitignore](.gitignore)**: IntelliJ IDEA
 - **GUI**: Swing
-- **SQLITE**
+- **SQLite**: Database Management
 ---
 
 ## 🎥 Screenshots
