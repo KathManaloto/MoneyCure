@@ -12,7 +12,7 @@ It helps users manage their **income, expenses, and savings** in one place, with
   View a quick summary of your financial health.
 
 
-- 💵 **Track Income, Savings, Budget & Expenses**  
+- 💵 **Add Income, Savings, Budget & Expenses**  
   Add, edit, and delete transactions with categories, descriptions, and notes.
 
 
@@ -29,9 +29,23 @@ It helps users manage their **income, expenses, and savings** in one place, with
 
 ## 🛠️ Tech Stack
 
-- **Java 17+**
-- **Swing (GUI)**
-- **DAO pattern** for data management
-
+- **Language**: Java (JDK 17)
+- **IDE[.gitignore](.gitignore)**: IntelliJ IDEA
+- **GUI**: Swing
+- **SQLITE**
 ---
-    
+
+## 🎥 Screenshots
+*DASHBOARD*
+![Dashboard](resources/screenshot1.png)
+
+*ADD DATA*
+![ADD DATA](resources/screenshot2.png)
+
+*MANAGE FINANCES*
+![MANAGE FINANCES](resources/screenshot3.png)
+
+## 👤 Author
+- **Kathlene Manaloto**
+- [GitHub](https://github.com/KathManaloto)
+- [LinkedIn](https://www.linkedin.com/in/kathlene-manaloto/) 
