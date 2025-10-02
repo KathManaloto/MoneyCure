@@ -36,13 +36,13 @@ It helps users manage their **income, expenses, and savings** in one place, with
 ---
 
 ## 🎥 Screenshots
-*DASHBOARD*
+*DASHBOARD*                                                                           
 ![Dashboard](resources/screenshot1.png)
 
-*ADD DATA*
+*ADD DATA*                                                                                          
 ![ADD DATA](resources/screenshot2.png)
 
-*MANAGE FINANCES*
+*MANAGE FINANCES*                                                                                  
 ![MANAGE FINANCES](resources/screenshot3.png)
 
 ## 👤 Author
