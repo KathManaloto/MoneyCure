@@ -74,8 +74,17 @@ public class ManageFinancesController {
     }
 
     private void searchTransactions(){
-        String query = manageFinancesPanel.getTxtFieldSearch().getText();
-        loadTransactions();
+        List<Transaction> transactions = transactionDAO.getAllTransactions();
+        String query = manageFinancesPanel.getTxtFieldSearch().getText().trim().toLowerCase();
+
+        if(!query.isEmpty()){
+            transactions = transactions.stream()
+                    .filter(t -> t.getDescription().toLowerCase().contains(query)
+                            || t.getCategory().toLowerCase().contains(query)
+                            || t.getNotes().toLowerCase().contains(query))
+                    .toList();
+        }
+        manageFinancesPanel.updateTransactionTable(transactions);
 
     }
 
